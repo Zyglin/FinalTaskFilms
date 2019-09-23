@@ -13,7 +13,7 @@ const email = value => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.te
 const minLength = min => value => (value && value.length < min ? `Must be ${min} characters or less` : undefined);
 const minLength6 = minLength(6);
 
-const LoginReduxFormView = props => {
+const LoginFormView = props => {
   const classes = useStyles();
   const { handleSubmit, onHandleRoute } = props;
   return (
@@ -40,12 +40,12 @@ const LoginReduxFormView = props => {
   );
 };
 
-LoginReduxFormView.propTypes = {
+LoginFormView.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   onHandleRoute: PropTypes.func.isRequired,
 };
 
-let LoginRedForm = LoginReduxFormView;
+let LoginRedForm = LoginFormView;
 
 LoginRedForm = reduxForm({
   form: 'login',

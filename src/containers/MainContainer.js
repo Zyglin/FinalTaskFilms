@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import MainReduxView from '../views/MainRedux';
+import MainView from '../views/MainRedux';
 import { logoutUser } from '../actions';
 
-class MainReduxContainer extends React.Component {
+class MainContainer extends React.Component {
   componentDidMount = () => {
     if (localStorage.getItem('token') === null) {
       this.props.history.push('/');
@@ -22,7 +22,7 @@ class MainReduxContainer extends React.Component {
   };
 
   render() {
-    return <MainReduxView mail={this.props.mail} onHandleClick={this.handleClick} />;
+    return <MainView mail={this.props.mail} onHandleClick={this.handleClick} />;
   }
 }
 
@@ -36,7 +36,7 @@ const mapDispatchToProps = dispatch => ({
   logoutUser: () => dispatch(logoutUser()),
 });
 
-MainReduxContainer.propTypes = {
+MainContainer.propTypes = {
   history: PropTypes.any,
   mail: PropTypes.any,
   logoutUser: PropTypes.func,
@@ -45,4 +45,4 @@ MainReduxContainer.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(MainReduxContainer);
+)(MainContainer);
