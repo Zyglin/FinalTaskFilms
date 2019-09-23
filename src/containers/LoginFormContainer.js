@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
-import LoginReduxFormView from '../views/LoginReduxForm';
+import LoginReduxFormView from '../views/LoginForm';
 import { fetchPosts } from '../actions';
 
-class LoginReduxFormContainer extends React.Component {
+class LoginFormContainer extends React.Component {
   handleSubmit = values => {
     this.props.fetchPosts(values).then(() => {
       if (localStorage.getItem('token') !== null) {
@@ -23,7 +23,7 @@ class LoginReduxFormContainer extends React.Component {
   }
 }
 
-LoginReduxFormContainer.propTypes = {
+LoginFormContainer.propTypes = {
   fetchPosts: PropTypes.any,
   history: PropTypes.any,
   emailValue: PropTypes.string,
@@ -48,4 +48,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(LoginReduxFormContainer);
+)(LoginFormContainer);

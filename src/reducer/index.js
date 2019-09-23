@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 import data from './DataEnterReducer';
-import filmReducer from './FilmsReduser';
-import commentReducer from './CommentsReduser';
+import filmReducer from './FilmsReducer';
+import commentReducer from './CommentsReducer';
 
 const rootReducer = combineReducers({
   data,

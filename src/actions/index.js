@@ -144,12 +144,11 @@ export function fetchRegisterPosts(subreddit) {
   };
 }
 
-export function createCommentFetch(comment) {
-  console.log(comment);
-  return dispatch => {
+export function createCommentFetch(comment, id) {
+  return async dispatch => {
     const ownToken = localStorage.token;
     if (ownToken) {
-      return fetch('http://localhost:50740/api/comment', {
+      await fetch('http://localhost:50740/api/comment', {
         method: 'post',
         headers: {
           Accept: 'application/json',
@@ -158,34 +157,46 @@ export function createCommentFetch(comment) {
         },
         body: JSON.stringify(comment),
       })
-        .then(resp => resp.json())
+        .then(resp => {
+          resp.json();
+        })
         .then(data => {
-          console.log(data);
           dispatch(createComment(data));
-        });
+        })
+        .then(
+          fetch(`http://localhost:50740/api/comment/${id}`, {
+            method: 'get',
+            headers: {
+              Accept: 'application/json',
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${ownToken}`,
+            },
+          })
+            .then(resp => resp.json())
+            .then(data => {
+              dispatch(getComments(data));
+            })
+        );
     }
   };
 }
 
 export function getCommentFetch(id) {
-  console.log(id);
-  return dispatch =>
-    setTimeout(() => {
-      const ownToken = localStorage.token;
-      if (ownToken) {
-        return fetch(`http://localhost:50740/api/comment/${id}`, {
-          method: 'get',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${ownToken}`,
-          },
-        })
-          .then(resp => resp.json())
-          .then(data => {
-            console.log(data);
-            dispatch(getComments(data));
-          });
-      }
-    }, 50);
+  return dispatch => {
+    const ownToken = localStorage.token;
+    if (ownToken) {
+      return fetch(`http://localhost:50740/api/comment/${id}`, {
+        method: 'get',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${ownToken}`,
+        },
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          dispatch(getComments(data));
+        });
+    }
+  };
 }

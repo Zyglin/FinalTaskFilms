@@ -36,8 +36,10 @@ class CurrentFilmContainer extends React.Component {
       FilmId: this.props.match.params.id,
     };
     const idFilm = this.props.match.params.id;
-    this.props.createCommentFetch(comment).then(this.props.getCommentFetch(idFilm));
-    this.setState({ value: '' });
+    this.props
+      .createCommentFetch(comment, idFilm)
+      // .then(this.props.getCommentFetch(idFilm))
+      .then(this.setState({ value: '' }));
   };
 
   handleChange = event => {
@@ -70,9 +72,9 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
+  createCommentFetch: (comment, id) => dispatch(createCommentFetch(comment, id)),
   getFilmFetch: id => dispatch(getFilmFetch(id)),
   getCommentFetch: id => dispatch(getCommentFetch(id)),
-  createCommentFetch: comment => dispatch(createCommentFetch(comment)),
 });
 
 CurrentFilmContainer.propTypes = {

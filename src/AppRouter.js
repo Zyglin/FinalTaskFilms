@@ -1,24 +1,24 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import NotFound from './containers/NotFoundContaner';
-import LoginReduxForm from './containers/LoginReduxFormContainer';
+import LoginForm from './containers/LoginFormContainer';
 import RegistrationForm from './containers/RegistrationFormContainer';
-import MainRedux from './containers/MainReduxContainer';
-import FilmRedux from './containers/FilmsReduxContainer';
+import Main from './containers/MainContainer';
+import FilmList from './containers/FilmsListContainer';
 import CurrentFilm from './containers/CurrentFilmContainer';
 
 const AppRouter = () => (
   <Router>
     <Switch>
-      <Route exact path="/" component={LoginReduxForm} />
+      <Route exact path="/" component={LoginForm} />
       <Route exact path="/registration" component={RegistrationForm} />
       <Route
         exact
         path="/main"
         render={props => (
           <div>
-            <MainRedux {...props} />
-            <FilmRedux {...props} />
+            <Main {...props} />
+            <FilmList {...props} />
           </div>
         )}
       />
@@ -27,7 +27,7 @@ const AppRouter = () => (
         render={props => {
           return (
             <div>
-              <MainRedux {...props} />
+              <Main {...props} />
               <CurrentFilm {...props} />
             </div>
           );

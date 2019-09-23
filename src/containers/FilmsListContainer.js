@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import FilmReduxView from '../views/FilmRedux';
+import FilmListView from '../views/FilmList';
 import { getFilmsFetch } from '../actions';
 
-class FilmsReduxContainer extends React.Component {
+class FilmsListContainer extends React.Component {
   componentDidMount = () => {
     if (localStorage.getItem('token') === null) {
       this.props.history.push('/');
@@ -14,7 +14,7 @@ class FilmsReduxContainer extends React.Component {
   };
 
   render() {
-    return <FilmReduxView films={this.props.films} />;
+    return <FilmListView films={this.props.films} />;
   }
 }
 
@@ -28,7 +28,7 @@ const mapDispatchToProps = dispatch => ({
   getFilmsFetch: () => dispatch(getFilmsFetch()),
 });
 
-FilmsReduxContainer.propTypes = {
+FilmsListContainer.propTypes = {
   history: PropTypes.any,
   getFilmsFetch: PropTypes.func,
   films: PropTypes.array,
@@ -37,4 +37,4 @@ FilmsReduxContainer.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(FilmsReduxContainer);
+)(FilmsListContainer);
