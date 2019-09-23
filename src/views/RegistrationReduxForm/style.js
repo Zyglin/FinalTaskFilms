@@ -3,14 +3,14 @@ import { makeStyles } from '@material-ui/core/styles';
 const useStyles = makeStyles(theme => ({
   container: {
     paddingTop: '20%',
-    height: '250px',
+    height: '300px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
   },
 
   form: {
-    height: '250px',
+    height: '300px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

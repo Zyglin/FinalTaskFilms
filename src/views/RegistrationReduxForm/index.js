@@ -12,6 +12,7 @@ import useStyles from './style';
 const required = value => (value || typeof value === 'number' ? undefined : 'Required');
 const email = value => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined);
 const minLength = min => value => (value && value.length < min ? `Must be ${min} characters or less` : undefined);
+const matchPassword = (value, allValues) => (value !== allValues.Password ? 'This field must match with your password field' : undefined);
 const minLength6 = minLength(6);
 
 const RegistrationReduxFormView = props => {
@@ -22,10 +23,13 @@ const RegistrationReduxFormView = props => {
       <div className={classes.container}>
         <form className={classes.form} onSubmit={handleSubmit}>
           <div>
-            <Field className={classes.textField} name="email" component={renderTextField} label="Email" type="email" validate={[required, email]} />
+            <Field className={classes.textField} name="Email" component={renderTextField} label="Email" type="email" validate={[required, email]} />
           </div>
           <div>
-            <Field className={classes.textField} name="password" label="Password" component={renderTextField} type="password" validate={[required, minLength6]} />
+            <Field className={classes.textField} name="Password" label="Password" component={renderTextField} type="password" validate={[required, minLength6]} />
+          </div>
+          <div>
+            <Field className={classes.textField} name="ConfirmPassword" label="Confirm Password" component={renderTextField} type="password" validate={[required, matchPassword]} />
           </div>
           <div>
             <Button type="submit" className={classes.button} variant="contained" color="primary">

@@ -5,6 +5,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as formReducer } from 'redux-form';
+import reducer from './reducer';
 import AppRouter from './AppRouter';
 
 const composeEnhancers = composeWithDevTools({
@@ -15,6 +16,7 @@ const composeEnhancers = composeWithDevTools({
 });
 
 const rootReducer = combineReducers({
+  loginFetch: reducer,
   form: formReducer,
 });
 

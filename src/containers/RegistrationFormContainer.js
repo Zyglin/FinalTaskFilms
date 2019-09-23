@@ -3,10 +3,15 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { formValueSelector } from 'redux-form';
 import RegistrationReduxFormView from '../views/RegistrationReduxForm';
+import { fetchRegisterPosts } from '../actions';
 
 class RegistrationReduxFormContainer extends React.Component {
   handleSubmit = values => {
-    this.props.history.push('');
+    this.props.fetchRegisterPosts(values).then(resp => {
+      if (resp.ok) {
+        this.props.history.push('/');
+      }
+    });
   };
 
   render() {
@@ -16,18 +21,30 @@ class RegistrationReduxFormContainer extends React.Component {
 
 RegistrationReduxFormContainer.propTypes = {
   history: PropTypes.any,
+  fetchRegisterPosts: PropTypes.func,
   emailValue: PropTypes.string,
   passwordValue: PropTypes.string,
 };
 
-function mapStateToProps(state) {
-  const selector = formValueSelector('registration');
-  const emailValue = selector(state, 'email');
-  const passwordValue = selector(state, 'password');
+function mapDispatchToProps(dispatch) {
   return {
-    emailValue,
-    passwordValue,
+    fetchRegisterPosts: values => dispatch(fetchRegisterPosts(values)),
   };
 }
 
-export default connect(mapStateToProps)(RegistrationReduxFormContainer);
+function mapStateToProps(state) {
+  const selector = formValueSelector('registration');
+  const emailValue = selector(state, 'Email');
+  const passwordValue = selector(state, 'Password');
+  const confirmPasswordValue = selector(state, 'ConfirmPassword');
+  return {
+    emailValue,
+    passwordValue,
+    confirmPasswordValue,
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(RegistrationReduxFormContainer);
