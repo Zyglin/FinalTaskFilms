@@ -35,7 +35,7 @@ const CurrentFilmView = props => {
   }
   const rows = PushComponent();
 
-  const { onHandleRoute, onHandleChangeStateComment, onHandleSendComment } = props;
+  const { onHandleRoute, onHandleChangeStateComment, onHandleSendComment, onHanleSendRating } = props;
   const opts = {
     height: '390',
     width: '640',
@@ -55,7 +55,7 @@ const CurrentFilmView = props => {
           </CardContent>
           <CardMedia className={classes.cardMediastyle} image={props.films.imageXPath} />
           <div className={classes.raitting}>
-            <Rating name="simple-controlled" value={3} />
+            <Rating onChange={onHanleSendRating} name="simple-controlled" value={props.rating} />
           </div>
         </Card>
         <div>
@@ -94,6 +94,8 @@ const CurrentFilmView = props => {
 CurrentFilmView.propTypes = {
   onHandleSendComment: PropTypes.func,
   onHandleChangeStateComment: PropTypes.func,
+  onHanleSendRating: PropTypes.func,
+  rating: PropTypes.number,
   films: PropTypes.any,
   comments: PropTypes.any,
   commentValue: PropTypes.string,

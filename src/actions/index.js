@@ -7,6 +7,8 @@ export const GET_FILMS = 'GET_FILMS';
 export const GET_FILM = 'GET_FILM';
 export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
+export const CREATE_RATING = 'CREATE_RATING';
+export const GET_RATING = 'GET_RATING';
 
 export function loginUser(mail) {
   return {
@@ -59,6 +61,20 @@ export function createComment(comment) {
   return {
     type: CREATE_COMMENT,
     payload: comment,
+  };
+}
+
+export function getRating(rating) {
+  return {
+    type: GET_RATING,
+    payload: rating,
+  };
+}
+
+export function createRating(rating) {
+  return {
+    type: CREATE_RATING,
+    payload: rating,
   };
 }
 
@@ -158,25 +174,24 @@ export function createCommentFetch(comment, id) {
         body: JSON.stringify(comment),
       })
         .then(resp => {
-          resp.json();
+          if (resp.ok) {
+            fetch(`http://localhost:50740/api/comment/${id}`, {
+              method: 'get',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${ownToken}`,
+              },
+            })
+              .then(response => response.json())
+              .then(data => {
+                dispatch(getComments(data));
+              });
+          }
         })
         .then(data => {
           dispatch(createComment(data));
-        })
-        .then(
-          fetch(`http://localhost:50740/api/comment/${id}`, {
-            method: 'get',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-              Authorization: `Bearer ${ownToken}`,
-            },
-          })
-            .then(resp => resp.json())
-            .then(data => {
-              dispatch(getComments(data));
-            })
-        );
+        });
     }
   };
 }
@@ -197,6 +212,60 @@ export function getCommentFetch(id) {
         .then(data => {
           dispatch(getComments(data));
         });
+    }
+  };
+}
+
+export function getRaitingFetch(id) {
+  return dispatch => {
+    const ownToken = localStorage.token;
+    if (ownToken) {
+      return fetch(`http://localhost:50740/api/rating/${id}`, {
+        method: 'get',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${ownToken}`,
+        },
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          dispatch(getRating(data));
+        });
+    }
+  };
+}
+
+export function createRatingFetch(comment, id) {
+  return async dispatch => {
+    const ownToken = localStorage.token;
+    if (ownToken) {
+      await fetch('http://localhost:50740/api/rating', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${ownToken}`,
+        },
+        body: JSON.stringify(comment),
+      })
+        .then(resp => {
+          if (resp.ok) {
+            fetch(`http://localhost:50740/api/rating/${id}`, {
+              method: 'get',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${ownToken}`,
+              },
+            })
+              .then(response => response.json())
+              .then(data => {
+                dispatch(getRating(data));
+              });
+          }
+        })
+        .then(data => dispatch(createRating(data)));
     }
   };
 }
