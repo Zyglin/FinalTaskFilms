@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-// import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -29,7 +28,7 @@ const MainRedux = props => {
             iTechArtFilms
           </Typography>
           <div className={classes.grow} />
-          <div>{localStorage.currentUser}</div>
+          <div>{props.mail}</div>
           <div className={classes.sectionDesktop}>
             <IconButton edge="end" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit" onClick={handleProfileMenuOpen}>
               <AccountCircle />
@@ -46,8 +45,7 @@ const MainRedux = props => {
           open={isMenuOpen}
           onClose={handleMenuClose}
         >
-          <MenuItem onClick={props.onHandleClick}>Logout {localStorage.currentUser}</MenuItem>
-          {/* <Button>Logout {localStorage.currentUser}</Button> */}
+          <MenuItem onClick={props.onHandleClick}>Logout {props.mail}</MenuItem>
         </Menu>
       </AppBar>
     </div>
@@ -55,6 +53,7 @@ const MainRedux = props => {
 };
 MainRedux.propTypes = {
   onHandleClick: PropTypes.func,
+  mail: PropTypes.string,
 };
 
 export default MainRedux;

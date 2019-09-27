@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { formValueSelector } from 'redux-form';
 import LoginReduxFormView from '../views/LoginForm';
-import { fetchPosts } from '../actions';
+import { jwtSelector } from '../selectors';
+import { axiosPosts } from '../actions';
 
-class LoginFormContainer extends React.Component {
+class LoginFormContainer extends React.PureComponent {
   handleSubmit = values => {
-    this.props.fetchPosts(values).then(() => {
-      if (localStorage.getItem('token') !== null) {
+    this.props.axiosPosts(values).then(() => {
+      if (this.props.jwt !== null) {
         this.props.history.push('/main');
       }
     });
@@ -19,29 +19,25 @@ class LoginFormContainer extends React.Component {
   };
 
   render() {
-    return <LoginReduxFormView onSubmit={this.handleSubmit} onHandleRoute={this.handleRoute} mail={this.props.emailValue} password={this.props.passwordValue} />;
+    return <LoginReduxFormView onSubmit={this.handleSubmit} onHandleRoute={this.handleRoute} />;
   }
 }
 
 LoginFormContainer.propTypes = {
-  fetchPosts: PropTypes.any,
+  axiosPosts: PropTypes.any,
   history: PropTypes.any,
-  emailValue: PropTypes.string,
-  passwordValue: PropTypes.string,
+  jwt: PropTypes.string,
 };
-function mapDispatchToProps(dispatch) {
+
+function mapStateToProps(state) {
   return {
-    fetchPosts: values => dispatch(fetchPosts(values)),
+    jwt: jwtSelector(state),
   };
 }
 
-function mapStateToProps(state) {
-  const selector = formValueSelector('login');
-  const emailValue = selector(state, 'Email');
-  const passwordValue = selector(state, 'Password');
+function mapDispatchToProps(dispatch) {
   return {
-    emailValue,
-    passwordValue,
+    axiosPosts: values => dispatch(axiosPosts(values)),
   };
 }
 

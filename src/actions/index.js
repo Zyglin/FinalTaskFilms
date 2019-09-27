@@ -1,13 +1,13 @@
 /* eslint-disable consistent-return */
+import axios from 'axios';
+
 export const REQUEST_POSTS = 'REQUEST_POSTS';
 export const REQUEST_REGISTRATION_POSTS = 'REQUEST_REGISTRATION_POSTS';
 export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_FILMS = 'GET_FILMS';
 export const GET_FILM = 'GET_FILM';
-export const CREATE_COMMENT = 'CREATE_COMMENT';
 export const GET_COMMENTS = 'GET_COMMENTS';
-export const CREATE_RATING = 'CREATE_RATING';
 export const GET_RATING = 'GET_RATING';
 
 export function loginUser(mail) {
@@ -22,17 +22,17 @@ export function logoutUser() {
   };
 }
 
-export function requestPosts(subreddit) {
+export function requestPosts(data) {
   return {
     type: REQUEST_POSTS,
-    subreddit,
+    data,
   };
 }
 
-export function requestRegisrtationPosts(subreddit) {
+export function requestRegisrtationPosts(data) {
   return {
     type: REQUEST_REGISTRATION_POSTS,
-    subreddit,
+    data,
   };
 }
 
@@ -57,13 +57,6 @@ export function getComments(comments) {
   };
 }
 
-export function createComment(comment) {
-  return {
-    type: CREATE_COMMENT,
-    payload: comment,
-  };
-}
-
 export function getRating(rating) {
   return {
     type: GET_RATING,
@@ -71,201 +64,155 @@ export function getRating(rating) {
   };
 }
 
-export function createRating(rating) {
-  return {
-    type: CREATE_RATING,
-    payload: rating,
-  };
+function axiosForLoginAndRegistration(url, data, method) {
+  return axios({
+    url,
+    method,
+    data: JSON.stringify(data),
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json; charset=utf-8',
+    },
+  });
 }
 
-export function fetchPosts(subreddit, props) {
-  return dispatch => {
-    dispatch(requestPosts(subreddit));
-    return fetch('http://localhost:50740/api/user', {
+function axiosCreatePost(url, data, method, ownToken) {
+  if (ownToken) {
+    return axios({
+      url,
+      method,
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
+        Authorization: `Bearer ${ownToken}`,
       },
-      method: 'post',
-      body: JSON.stringify(subreddit),
-    })
-      .then(resp => resp.json())
-      .then(data => {
-        if (data.jwt === null) {
-          console.log(data);
-        } else {
-          console.log(data.jwt);
-          localStorage.setItem('token', data.jwt);
-          localStorage.setItem('currentUser', data.user);
-          dispatch(loginUser(data.user));
+      data: JSON.stringify(data),
+    });
+  }
+}
+
+function axiosGet(url, method, ownToken) {
+  if (ownToken) {
+    return axios({
+      url,
+      method,
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json; charset=utf-8',
+        Authorization: `Bearer ${ownToken}`,
+      },
+    });
+  }
+}
+
+export function axiosPosts(loginData, props) {
+  return dispatch => {
+    dispatch(requestPosts(loginData));
+    return axiosForLoginAndRegistration('http://localhost:50740/api/user', loginData, 'post')
+      .then(response => {
+        if (response.data.jwt !== null) {
+          dispatch(loginUser(response.data));
         }
+      })
+      .catch(error => {
+        throw error;
       });
   };
 }
 
-export function getFilmsFetch() {
+export function getFilmsAxios(ownToken) {
   return dispatch => {
-    const ownToken = localStorage.token;
-    if (ownToken) {
-      return fetch('http://localhost:50740/api/films', {
-        method: 'get',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${ownToken}`,
-        },
+    return axiosGet('http://localhost:50740/api/films', 'get', ownToken)
+      .then(response => {
+        dispatch(getFilms(response.data));
       })
-        .then(resp => resp.json())
-        .then(data => {
-          console.log(data);
-          dispatch(getFilms(data));
-        });
-    }
+      .catch(error => {
+        throw error;
+      });
   };
 }
 
-export function getFilmFetch(id) {
-  console.log(id);
+export function getFilmAxios(id, ownToken) {
   return dispatch => {
-    const ownToken = localStorage.token;
-    if (ownToken) {
-      return fetch(`http://localhost:50740/api/films/${id}`, {
-        method: 'get',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${ownToken}`,
-        },
+    return axiosGet(`http://localhost:50740/api/films/${id}`, 'get', ownToken)
+      .then(response => {
+        dispatch(getFilm(response.data));
       })
-        .then(resp => resp.json())
-        .then(data => {
-          console.log(data);
-          dispatch(getFilm(data));
-        });
-    }
+      .catch(error => {
+        throw error;
+      });
   };
 }
 
-export function fetchRegisterPosts(subreddit) {
+export function axiosRegisterPosts(data) {
   return dispatch => {
-    dispatch(requestRegisrtationPosts(subreddit));
-    return fetch('http://localhost:50740/api/registration', {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
-      method: 'post',
-      body: JSON.stringify(subreddit),
+    dispatch(requestRegisrtationPosts(data));
+    return axiosForLoginAndRegistration('http://localhost:50740/api/registration', data, 'post').catch(error => {
+      throw error;
     });
   };
 }
 
-export function createCommentFetch(comment, id) {
+export function createCommentAxios(comment, id, ownToken) {
   return async dispatch => {
-    const ownToken = localStorage.token;
-    if (ownToken) {
-      await fetch('http://localhost:50740/api/comment', {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${ownToken}`,
-        },
-        body: JSON.stringify(comment),
-      })
-        .then(resp => {
-          if (resp.ok) {
-            fetch(`http://localhost:50740/api/comment/${id}`, {
-              method: 'get',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${ownToken}`,
-              },
+    await axiosCreatePost('http://localhost:50740/api/comment', comment, 'post', ownToken)
+      .then(resp => {
+        if (resp.status === 200) {
+          axiosGet(`http://localhost:50740/api/comment/${id}`, 'get', ownToken)
+            .then(response => {
+              dispatch(getComments(response.data));
             })
-              .then(response => response.json())
-              .then(data => {
-                dispatch(getComments(data));
-              });
-          }
-        })
-        .then(data => {
-          dispatch(createComment(data));
-        });
-    }
-  };
-}
-
-export function getCommentFetch(id) {
-  return dispatch => {
-    const ownToken = localStorage.token;
-    if (ownToken) {
-      return fetch(`http://localhost:50740/api/comment/${id}`, {
-        method: 'get',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${ownToken}`,
-        },
+            .catch(error => {
+              throw error;
+            });
+        }
       })
-        .then(resp => resp.json())
-        .then(data => {
-          dispatch(getComments(data));
-        });
-    }
+      .catch(error => {
+        throw error;
+      });
   };
 }
 
-export function getRaitingFetch(id) {
+export function getCommentAxios(id, ownToken) {
   return dispatch => {
-    const ownToken = localStorage.token;
-    if (ownToken) {
-      return fetch(`http://localhost:50740/api/rating/${id}`, {
-        method: 'get',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${ownToken}`,
-        },
+    return axiosGet(`http://localhost:50740/api/comment/${id}`, 'get', ownToken)
+      .then(response => {
+        dispatch(getComments(response.data));
       })
-        .then(resp => resp.json())
-        .then(data => {
-          dispatch(getRating(data));
-        });
-    }
+      .catch(error => {
+        throw error;
+      });
   };
 }
 
-export function createRatingFetch(comment, id) {
+export function getRaitingAxios(id, ownToken) {
+  return dispatch => {
+    return axiosGet(`http://localhost:50740/api/rating/${id}`, 'get', ownToken)
+      .then(response => {
+        dispatch(getRating(response.data));
+      })
+      .catch(error => {
+        throw error;
+      });
+  };
+}
+
+export function createRatingAxios(comment, id, ownToken) {
   return async dispatch => {
-    const ownToken = localStorage.token;
-    if (ownToken) {
-      await fetch('http://localhost:50740/api/rating', {
-        method: 'post',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${ownToken}`,
-        },
-        body: JSON.stringify(comment),
-      })
-        .then(resp => {
-          if (resp.ok) {
-            fetch(`http://localhost:50740/api/rating/${id}`, {
-              method: 'get',
-              headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${ownToken}`,
-              },
+    await axiosCreatePost('http://localhost:50740/api/rating', comment, 'post', ownToken)
+      .then(resp => {
+        if (resp.status === 200) {
+          axiosGet(`http://localhost:50740/api/rating/${id}`, 'get', ownToken)
+            .then(response => {
+              dispatch(getRating(response.data));
             })
-              .then(response => response.json())
-              .then(data => {
-                dispatch(getRating(data));
-              });
-          }
-        })
-        .then(data => dispatch(createRating(data)));
-    }
+            .catch(error => {
+              throw error;
+            });
+        }
+      })
+      .catch(error => {
+        throw error;
+      });
   };
 }

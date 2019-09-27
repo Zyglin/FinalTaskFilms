@@ -23,6 +23,7 @@ const RegistrationReduxFormView = props => {
       <div className={classes.container}>
         <form className={classes.form} onSubmit={handleSubmit}>
           <div>
+            {props.mail}
             <Field className={classes.textField} name="Email" component={renderTextField} label="Email" type="email" validate={[required, email]} />
           </div>
           <div>
@@ -47,6 +48,7 @@ const RegistrationReduxFormView = props => {
 };
 
 RegistrationReduxFormView.propTypes = {
+  mail: PropTypes.any,
   handleSubmit: PropTypes.func.isRequired,
 };
 

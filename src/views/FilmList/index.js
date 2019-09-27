@@ -9,7 +9,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import useStyles from './style';
 
-const filmRedux = props => {
+const filmList = props => {
   const classes = useStyles();
   function PushComponent() {
     const rows = [];
@@ -23,7 +23,7 @@ const filmRedux = props => {
           </CardContent>
           <CardMedia className={classes.cardMediastyle} image={props.films[i].imageXPath} />
           <CardActions>
-            <Link className={classes.a} to={`/${props.films[i].id}`}>
+            <Link className={classes.a} to={`${props.films[i].id}`}>
               <Button size="small" variant="outlined" color="primary">
                 More Details
               </Button>
@@ -41,8 +41,8 @@ const filmRedux = props => {
     </div>
   );
 };
-filmRedux.propTypes = {
-  films: PropTypes.array,
+filmList.propTypes = {
+  films: PropTypes.any,
 };
 
-export default filmRedux;
+export default filmList;

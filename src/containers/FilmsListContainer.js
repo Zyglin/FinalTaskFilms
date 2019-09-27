@@ -2,14 +2,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FilmListView from '../views/FilmList';
-import { getFilmsFetch } from '../actions';
+import { filmSelector, jwtSelector } from '../selectors';
+import { getFilmsAxios } from '../actions';
 
-class FilmsListContainer extends React.Component {
+class FilmsListContainer extends React.PureComponent {
   componentDidMount = () => {
-    if (localStorage.getItem('token') === null) {
+    if (this.props.jwt === null) {
       this.props.history.push('/');
     } else {
-      this.props.getFilmsFetch();
+      console.log(this.props.jwt);
+      this.props.getFilmsAxios(this.props.jwt);
     }
   };
 
@@ -20,18 +22,20 @@ class FilmsListContainer extends React.Component {
 
 function mapStateToProps(state) {
   return {
-    films: state.loginFetch.filmReducer,
+    films: filmSelector(state),
+    jwt: jwtSelector(state),
   };
 }
 
 const mapDispatchToProps = dispatch => ({
-  getFilmsFetch: () => dispatch(getFilmsFetch()),
+  getFilmsAxios: ownToken => dispatch(getFilmsAxios(ownToken)),
 });
 
 FilmsListContainer.propTypes = {
   history: PropTypes.any,
-  getFilmsFetch: PropTypes.func,
-  films: PropTypes.array,
+  getFilmsAxios: PropTypes.func,
+  films: PropTypes.any,
+  jwt: PropTypes.string,
 };
 
 export default connect(

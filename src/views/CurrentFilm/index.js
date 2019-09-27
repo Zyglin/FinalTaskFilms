@@ -21,6 +21,7 @@ const CurrentFilmView = props => {
         <TextField
           value={props.commentValue}
           id="textarea"
+          key={i}
           label={props.comments[i].user.email}
           value={props.comments[i].description}
           disabled
@@ -43,7 +44,7 @@ const CurrentFilmView = props => {
       autoplay: 1,
     },
   };
-  const labelComment = `Write your own comment ${localStorage.currentUser}`;
+  const labelComment = `Write your own comment ${props.mail}`;
   return (
     <div>
       <div className={classes.flexs}>
@@ -95,11 +96,12 @@ CurrentFilmView.propTypes = {
   onHandleSendComment: PropTypes.func,
   onHandleChangeStateComment: PropTypes.func,
   onHanleSendRating: PropTypes.func,
-  rating: PropTypes.number,
+  rating: PropTypes.any,
   films: PropTypes.any,
   comments: PropTypes.any,
   commentValue: PropTypes.string,
   onHandleRoute: PropTypes.any,
+  mail: PropTypes.string,
 };
 
 export default CurrentFilmView;
