@@ -49,7 +49,6 @@ let LoginRedForm = LoginFormView;
 
 LoginRedForm = reduxForm({
   form: 'login',
-  // destroyOnUnmount: false,
 })(LoginRedForm);
 
 export default LoginRedForm;

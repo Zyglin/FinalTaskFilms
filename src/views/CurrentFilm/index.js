@@ -14,28 +14,6 @@ import useStyles from './style';
 
 const CurrentFilmView = props => {
   const classes = useStyles();
-  function PushComponent() {
-    const rows = [];
-    for (let i = 0; i < props.comments.length; i += 1) {
-      rows.push(
-        <TextField
-          value={props.commentValue}
-          id="textarea"
-          key={i}
-          label={props.comments[i].user.email}
-          value={props.comments[i].description}
-          disabled
-          rows="2"
-          multiline
-          className={classes.textField}
-          variant="filled"
-        />
-      );
-    }
-    return rows;
-  }
-  const rows = PushComponent();
-
   const { onHandleRoute, onHandleChangeStateComment, onHandleSendComment, onHanleSendRating } = props;
   const opts = {
     height: '390',
@@ -86,7 +64,25 @@ const CurrentFilmView = props => {
             Send Comment
           </Button>
         </div>
-        <div className={classes.divFortextField}>{rows}</div>
+        <div className={classes.divFortextField}>
+          {props.comments.map(comment => {
+            const key = comment.id;
+            return (
+              <TextField
+                value={comment.commentValue}
+                id="textarea"
+                key={key}
+                label={comment.user.email}
+                value={comment.description}
+                disabled
+                rows="2"
+                multiline
+                className={classes.textField}
+                variant="filled"
+              />
+            );
+          })}
+        </div>
       </div>
     </div>
   );
@@ -96,11 +92,11 @@ CurrentFilmView.propTypes = {
   onHandleSendComment: PropTypes.func,
   onHandleChangeStateComment: PropTypes.func,
   onHanleSendRating: PropTypes.func,
-  rating: PropTypes.any,
-  films: PropTypes.any,
-  comments: PropTypes.any,
+  rating: PropTypes.number,
+  films: PropTypes.object,
+  comments: PropTypes.array,
   commentValue: PropTypes.string,
-  onHandleRoute: PropTypes.any,
+  onHandleRoute: PropTypes.func,
   mail: PropTypes.string,
 };
 

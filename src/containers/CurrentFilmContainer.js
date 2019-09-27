@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filmSelector, commentSelector, ratingSelector, mailSelector, jwtSelector } from '../selectors';
 import CurrentFilmView from '../views/CurrentFilm';
-import { getFilmAxios, createCommentAxios, getCommentAxios, createRatingAxios, getRaitingAxios } from '../actions';
+import { getFilmAxios, createCommentAxios, getCommentAxios, createRatingAxios, getRaitingAxios } from '../axios';
 
 class CurrentFilmContainer extends React.PureComponent {
   constructor(props) {
@@ -93,9 +93,9 @@ CurrentFilmContainer.propTypes = {
   createCommentAxios: PropTypes.func,
   createRatingAxios: PropTypes.func,
   getRaitingAxios: PropTypes.func,
-  rating: PropTypes.any,
-  films: PropTypes.any,
-  comments: PropTypes.any,
+  rating: PropTypes.array,
+  films: PropTypes.object,
+  comments: PropTypes.array,
   mail: PropTypes.string,
   jwt: PropTypes.string,
 };

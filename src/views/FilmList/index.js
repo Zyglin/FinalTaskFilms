@@ -42,7 +42,7 @@ const filmList = props => {
   );
 };
 filmList.propTypes = {
-  films: PropTypes.any,
+  films: PropTypes.array,
 };
 
 export default filmList;

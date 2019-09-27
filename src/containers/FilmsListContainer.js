@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FilmListView from '../views/FilmList';
 import { filmSelector, jwtSelector } from '../selectors';
-import { getFilmsAxios } from '../actions';
+import { getFilmsAxios } from '../axios';
 
 class FilmsListContainer extends React.PureComponent {
   componentDidMount = () => {
     if (this.props.jwt === null) {
       this.props.history.push('/');
     } else {
-      console.log(this.props.jwt);
       this.props.getFilmsAxios(this.props.jwt);
     }
   };
@@ -34,7 +33,7 @@ const mapDispatchToProps = dispatch => ({
 FilmsListContainer.propTypes = {
   history: PropTypes.any,
   getFilmsAxios: PropTypes.func,
-  films: PropTypes.any,
+  films: PropTypes.array,
   jwt: PropTypes.string,
 };
 

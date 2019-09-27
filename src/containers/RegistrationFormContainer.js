@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RegistrationReduxFormView from '../views/RegistrationReduxForm';
-import { axiosRegisterPosts } from '../actions';
+import { axiosRegisterPosts } from '../axios';
 
 class RegistrationReduxFormContainer extends React.PureComponent {
   handleSubmit = values => {

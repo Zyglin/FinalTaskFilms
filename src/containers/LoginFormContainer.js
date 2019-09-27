@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginReduxFormView from '../views/LoginForm';
 import { jwtSelector } from '../selectors';
-import { axiosPosts } from '../actions';
+import { axiosPosts } from '../axios';
 
 class LoginFormContainer extends React.PureComponent {
   handleSubmit = values => {
@@ -24,7 +24,7 @@ class LoginFormContainer extends React.PureComponent {
 }
 
 LoginFormContainer.propTypes = {
-  axiosPosts: PropTypes.any,
+  axiosPosts: PropTypes.func,
   history: PropTypes.any,
   jwt: PropTypes.string,
 };
