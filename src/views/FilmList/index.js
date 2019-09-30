@@ -11,33 +11,32 @@ import useStyles from './style';
 
 const filmList = props => {
   const classes = useStyles();
-  function PushComponent() {
-    const rows = [];
-    for (let i = 0; i < props.films.length; i += 1) {
-      rows.push(
-        <Card className={classes.card} key={i}>
-          <CardContent className={classes.titleCardContent}>
-            <Typography className={classes.titles} color="textSecondary" gutterBottom>
-              {props.films[i].name}
-            </Typography>
-          </CardContent>
-          <CardMedia className={classes.cardMediastyle} image={props.films[i].imageXPath} />
-          <CardActions>
-            <Link className={classes.a} to={`${props.films[i].id}`}>
-              <Button size="small" variant="outlined" color="primary">
-                More Details
-              </Button>
-            </Link>
-          </CardActions>
-        </Card>
-      );
-    }
-    return rows;
-  }
-  const rows = PushComponent();
+  const films = Array.from(props.films);
   return (
     <div>
-      <div className={classes.flexs}>{rows}</div>
+      <div className={classes.flexs}>
+        {films.map(film => {
+          const key = films.id;
+          return (
+            <Card className={classes.card} key={key}>
+              <CardContent className={classes.titleCardContent}>
+                <Typography className={classes.titles} color="textSecondary" gutterBottom>
+                  {film.name}
+                </Typography>
+              </CardContent>
+              <CardMedia className={classes.cardMediastyle} image={film.imageXPath} />
+              <CardActions>
+                <Link className={classes.a} to={`${film.id}`}>
+                  <Button size="small" variant="outlined" color="primary">
+                    More Details
+                  </Button>
+                </Link>
+              </CardActions>
+            </Card>
+          );
+        })}
+        }
+      </div>
     </div>
   );
 };
