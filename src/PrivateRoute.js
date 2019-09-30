@@ -1,11 +1,16 @@
-/* eslint-disable react/jsx-indent */
-/* eslint-disable react/jsx-curly-newline */
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
-const PrivateRoute = (props, { component: Component, ...rest }) => (
-  <Route {...rest} render={prop => (props.jwt !== null ? <Component {...prop} /> : <Redirect to={{ pathname: '/login', state: { from: prop.location } }} />)} />
-);
+const TodoListItem = () => {
+  const todo = useSelector(state => state && state.login && state.login.jwt);
+  return todo;
+};
+
+const PrivateRoute = ({ component: Component, ...rest }) => {
+  const jwt = TodoListItem();
+  return <Route {...rest} render={props => (jwt ? <Component {...props} /> : <Redirect to="/" />)} />;
+};
 
 export default PrivateRoute;

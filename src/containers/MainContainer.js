@@ -13,9 +13,6 @@ class MainContainer extends React.PureComponent {
   };
 
   render() {
-    if (this.props.jwt === null) {
-      this.props.history.push('/');
-    }
     return <MainView onHandleClick={this.handleClick} mail={this.props.mail} />;
   }
 }
@@ -33,7 +30,6 @@ function mapStateToProps(state) {
 MainContainer.propTypes = {
   history: PropTypes.any,
   logoutUser: PropTypes.func,
-  jwt: PropTypes.string,
   mail: PropTypes.string,
 };
 

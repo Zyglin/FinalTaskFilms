@@ -48,9 +48,6 @@ class CurrentFilmContainer extends React.PureComponent {
   };
 
   render() {
-    if (this.props.jwt === null) {
-      this.props.history.push('/');
-    }
     return (
       <CurrentFilmView
         films={this.props.films}
@@ -87,7 +84,6 @@ const mapDispatchToProps = dispatch => ({
 
 CurrentFilmContainer.propTypes = {
   match: PropTypes.any,
-  history: PropTypes.any,
   getFilmAxios: PropTypes.func,
   getCommentAxios: PropTypes.func,
   createCommentAxios: PropTypes.func,

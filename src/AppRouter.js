@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import NotFound from './containers/NotFoundContaner';
+import PrivateRoute from './PrivateRoute';
 import LoginForm from './containers/LoginFormContainer';
 import RegistrationForm from './containers/RegistrationFormContainer';
 import Main from './containers/MainContainer';
@@ -12,19 +13,19 @@ const AppRouter = () => (
     <Switch>
       <Route exact path="/" component={LoginForm} />
       <Route exact path="/registration" component={RegistrationForm} />
-      <Route
+      <PrivateRoute
         exact
         path="/main"
-        render={props => (
+        component={props => (
           <div>
             <Main {...props} />
             <FilmList {...props} />
           </div>
         )}
       />
-      <Route
+      <PrivateRoute
         path="/:id"
-        render={props => {
+        component={props => {
           return (
             <div>
               <Main {...props} />

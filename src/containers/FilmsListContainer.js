@@ -7,11 +7,7 @@ import { getFilmsAxios } from '../axios';
 
 class FilmsListContainer extends React.PureComponent {
   componentDidMount = () => {
-    if (this.props.jwt === null) {
-      this.props.history.push('/');
-    } else {
-      this.props.getFilmsAxios(this.props.jwt);
-    }
+    this.props.getFilmsAxios(this.props.jwt);
   };
 
   render() {
@@ -31,7 +27,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 FilmsListContainer.propTypes = {
-  history: PropTypes.any,
   getFilmsAxios: PropTypes.func,
   films: PropTypes.array,
   jwt: PropTypes.string,
