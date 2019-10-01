@@ -14,6 +14,9 @@ import useStyles from './style';
 
 const CurrentFilmView = props => {
   const classes = useStyles();
+  console.log(props);
+  const comments = Array.from(props.comments);
+
   const { onHandleRoute, onHandleChangeStateComment, onHandleSendComment, onHanleSendRating } = props;
   const opts = {
     height: '390',
@@ -65,7 +68,7 @@ const CurrentFilmView = props => {
           </Button>
         </div>
         <div className={classes.divFortextField}>
-          {props.comments.map(comment => {
+          {comments.map(comment => {
             const key = comment.id;
             return <TextField id="textarea" key={key} label={comment.user.email} value={comment.description} disabled rows="2" multiline className={classes.textField} variant="filled" />;
           })}

@@ -1,13 +1,11 @@
-import { GET_COMMENTS } from '../actions';
+import { handleActions } from 'redux-actions';
 
 const initialState = [];
 
-function commentReducer(state = initialState, action) {
-  switch (action.type) {
-    case GET_COMMENTS:
-      return [...action.payload];
-    default:
-      return state;
-  }
-}
+const commentReducer = handleActions(
+  {
+    GET_COMMENTS: (state, action) => [...action.payload.comments],
+  },
+  { initialState }
+);
 export default commentReducer;

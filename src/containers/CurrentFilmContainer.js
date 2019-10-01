@@ -48,6 +48,7 @@ class CurrentFilmContainer extends React.PureComponent {
   };
 
   render() {
+    console.log(this.props.comments);
     return (
       <CurrentFilmView
         films={this.props.films}

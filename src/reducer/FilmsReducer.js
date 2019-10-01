@@ -1,15 +1,12 @@
-import { GET_FILMS, GET_FILM } from '../actions';
+import { handleActions } from 'redux-actions';
 
 const initialState = [];
 
-function filmReducer(state = initialState, action) {
-  switch (action.type) {
-    case GET_FILMS:
-      return [...action.payload];
-    case GET_FILM:
-      return action.payload;
-    default:
-      return state;
-  }
-}
+const filmReducer = handleActions(
+  {
+    GET_FILMS: (state, action) => [...action.payload.films],
+    GET_FILM: (state, action) => action.payload.film,
+  },
+  { initialState }
+);
 export default filmReducer;

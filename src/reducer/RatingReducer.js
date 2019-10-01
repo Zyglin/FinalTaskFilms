@@ -1,13 +1,11 @@
-import { GET_RATING } from '../actions';
+import { handleActions } from 'redux-actions';
 
 const initialState = [];
 
-function ratingReducer(state = initialState, action) {
-  switch (action.type) {
-    case GET_RATING:
-      return action.payload;
-    default:
-      return state;
-  }
-}
+const ratingReducer = handleActions(
+  {
+    GET_RATING: (state, action) => action.payload.rating,
+  },
+  { initialState }
+);
 export default ratingReducer;

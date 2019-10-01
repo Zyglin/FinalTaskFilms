@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import axios from 'axios';
-import { requestPosts, loginUser, getFilms, getFilm, requestRegisrtationPosts, getComments, getRating } from '../actions';
+import { loginUser, requestPosts, getFilms, getFilm, getComments, getRating } from '../actions';
 
 function axiosForLoginAndRegistration(url, data, method) {
   return axios({
@@ -84,7 +84,6 @@ export function getFilmAxios(id, ownToken) {
 
 export function axiosRegisterPosts(data) {
   return dispatch => {
-    dispatch(requestRegisrtationPosts(data));
     return axiosForLoginAndRegistration('http://localhost:50740/api/registration', data, 'post').catch(error => {
       throw error;
     });

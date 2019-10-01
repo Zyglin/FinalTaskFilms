@@ -1,19 +1,13 @@
-import { REQUEST_POSTS, REQUEST_REGISTRATION_POSTS, LOGIN_USER, LOGOUT_USER } from '../actions';
+import { handleActions } from 'redux-actions';
 
 const initialState = {};
 
-function dataReducer(state = initialState, action) {
-  switch (action.type) {
-    case REQUEST_POSTS:
-      return action.data;
-    case LOGIN_USER:
-      return action.payload;
-    case LOGOUT_USER:
-      return null;
-    case REQUEST_REGISTRATION_POSTS:
-      return action.data;
-    default:
-      return state;
-  }
-}
+const dataReducer = handleActions(
+  {
+    REQUEST_POSTS: (state, action) => action.payload.data,
+    LOGIN_USER: (state, action) => action.payload.data,
+    LOGOUT_USER: (state, action) => null,
+  },
+  { initialState }
+);
 export default dataReducer;

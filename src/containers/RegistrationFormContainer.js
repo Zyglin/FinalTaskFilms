@@ -6,6 +6,7 @@ import { axiosRegisterPosts } from '../axios';
 
 class RegistrationReduxFormContainer extends React.PureComponent {
   handleSubmit = values => {
+    console.log(values);
     this.props.axiosRegisterPosts(values).then(resp => {
       if (resp.status === 200) {
         this.props.history.push('/');
