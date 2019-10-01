@@ -67,20 +67,7 @@ const CurrentFilmView = props => {
         <div className={classes.divFortextField}>
           {props.comments.map(comment => {
             const key = comment.id;
-            return (
-              <TextField
-                value={comment.commentValue}
-                id="textarea"
-                key={key}
-                label={comment.user.email}
-                value={comment.description}
-                disabled
-                rows="2"
-                multiline
-                className={classes.textField}
-                variant="filled"
-              />
-            );
+            return <TextField id="textarea" key={key} label={comment.user.email} value={comment.description} disabled rows="2" multiline className={classes.textField} variant="filled" />;
           })}
         </div>
       </div>

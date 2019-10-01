@@ -35,7 +35,6 @@ const filmList = props => {
             </Card>
           );
         })}
-        }
       </div>
     </div>
   );
