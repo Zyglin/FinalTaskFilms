@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainView from '../views/MainRedux';
 import { jwtSelector, mailSelector } from '../selectors';
-import { logoutUser } from '../actions';
+import { logOut } from '../actions';
 
 class MainContainer extends React.PureComponent {
   handleClick = event => {
     event.preventDefault();
-    this.props.logoutUser();
+    this.props.logOut();
     this.props.history.push('/');
   };
 
@@ -17,7 +17,7 @@ class MainContainer extends React.PureComponent {
   }
 }
 const mapDispatchToProps = dispatch => ({
-  logoutUser: () => dispatch(logoutUser()),
+  logOut: () => dispatch(logOut()),
 });
 
 function mapStateToProps(state) {
@@ -29,7 +29,7 @@ function mapStateToProps(state) {
 
 MainContainer.propTypes = {
   history: PropTypes.any,
-  logoutUser: PropTypes.func,
+  logOut: PropTypes.func,
   mail: PropTypes.string,
 };
 

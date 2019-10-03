@@ -4,7 +4,11 @@ const initialState = [];
 
 const commentReducer = handleActions(
   {
-    GET_COMMENTS: (state, action) => [...action.payload.comments],
+    CREATE_COMMENT_REQUEST: (state, action) => {
+      console.log(action);
+    },
+    GET_COMMENTS: (state, action) => [...action.payload],
+    GET_COMMENT_FAIL: (state, action) => action.payload,
   },
   { initialState }
 );

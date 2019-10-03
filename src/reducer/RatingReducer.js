@@ -4,7 +4,11 @@ const initialState = [];
 
 const ratingReducer = handleActions(
   {
-    GET_RATING: (state, action) => action.payload.rating,
+    CREATE_RATING_REQUEST: (state, action) => {
+      console.log(action);
+    },
+    GET_RATING: (state, action) => action.payload,
+    GET_RATNG_FAIL: (state, action) => action.payload,
   },
   { initialState }
 );

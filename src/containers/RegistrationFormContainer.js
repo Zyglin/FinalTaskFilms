@@ -2,16 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import RegistrationReduxFormView from '../views/RegistrationReduxForm';
-import { axiosRegisterPosts } from '../axios';
+import { registerRequest } from '../actions';
+import { loginSelector } from '../selectors';
 
 class RegistrationReduxFormContainer extends React.PureComponent {
   handleSubmit = values => {
-    console.log(values);
-    this.props.axiosRegisterPosts(values).then(resp => {
-      if (resp.status === 200) {
-        this.props.history.push('/');
-      }
-    });
+    this.props.registerRequest(values);
+    if (this.props.registerStatus === 200) {
+      this.props.history.push('/');
+    }
   };
 
   render() {
@@ -21,16 +20,22 @@ class RegistrationReduxFormContainer extends React.PureComponent {
 
 RegistrationReduxFormContainer.propTypes = {
   history: PropTypes.any,
-  axiosRegisterPosts: PropTypes.func,
+  registerRequest: PropTypes.func,
+  registerStatus: PropTypes.number,
 };
 
+function mapStateToProps(state) {
+  return {
+    registerStatus: loginSelector(state),
+  };
+}
 function mapDispatchToProps(dispatch) {
   return {
-    axiosRegisterPosts: values => dispatch(axiosRegisterPosts(values)),
+    registerRequest: values => dispatch(registerRequest(values)),
   };
 }
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(RegistrationReduxFormContainer);

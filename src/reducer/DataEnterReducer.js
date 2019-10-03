@@ -1,11 +1,18 @@
 import { handleActions } from 'redux-actions';
 
-const initialState = {};
+const initialState = {
+  user: null,
+  token: null,
+};
 
 const dataReducer = handleActions(
   {
-    REQUEST_POSTS: (state, action) => action.payload.data,
-    LOGIN_USER: (state, action) => action.payload.data,
+    LOGIN_REQUEST: (state, action) => action.payload.data,
+    LOGIN_SUCCESS: (state, action) => action.payload,
+    LOGIN_FAIL: (state, action) => action.payload,
+    REGISTER_REQUEST: (state, action) => action.payload.data,
+    REGISTER_SUCCESS: (state, action) => action.payload,
+    REGISTER_FAIL: (state, action) => action.payload,
     LOGOUT_USER: (state, action) => null,
   },
   { initialState }

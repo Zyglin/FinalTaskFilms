@@ -4,8 +4,16 @@ const initialState = [];
 
 const filmReducer = handleActions(
   {
-    GET_FILMS: (state, action) => [...action.payload.films],
-    GET_FILM: (state, action) => action.payload.film,
+    FILMS_REQUEST: (state, action) => {
+      console.log(action);
+    },
+    FILM_REQUEST: (state, action) => {
+      console.log(action);
+    },
+    GET_FILMS: (state, action) => [...action.payload],
+    GET_FILMSFAIL: (state, action) => action.payload,
+    GET_FILM: (state, action) => action.payload,
+    GET_FAIL: (state, action) => action.payload,
   },
   { initialState }
 );

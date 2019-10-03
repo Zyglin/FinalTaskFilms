@@ -3,15 +3,17 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import LoginReduxFormView from '../views/LoginForm';
 import { jwtSelector } from '../selectors';
-import { axiosPosts } from '../axios';
+import { loginRequest } from '../actions';
 
 class LoginFormContainer extends React.PureComponent {
+  componentDidUpdate() {
+    if (this.props.jwt) {
+      this.props.history.push('/main');
+    }
+  }
+
   handleSubmit = values => {
-    this.props.axiosPosts(values).then(() => {
-      if (this.props.jwt !== null) {
-        this.props.history.push('/main');
-      }
-    });
+    this.props.loginRequest(values);
   };
 
   handleRoute = () => {
@@ -24,7 +26,7 @@ class LoginFormContainer extends React.PureComponent {
 }
 
 LoginFormContainer.propTypes = {
-  axiosPosts: PropTypes.func,
+  loginRequest: PropTypes.func,
   history: PropTypes.any,
   jwt: PropTypes.string,
 };
@@ -37,7 +39,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    axiosPosts: values => dispatch(axiosPosts(values)),
+    loginRequest: values => dispatch(loginRequest(values)),
   };
 }
 

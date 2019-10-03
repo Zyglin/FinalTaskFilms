@@ -1,4 +1,4 @@
-import { createActions } from 'redux-actions';
+import { createAction } from 'redux-actions';
 
 // export const REQUEST_POSTS = 'REQUEST_POSTS';
 // export const REQUEST_REGISTRATION_POSTS = 'REQUEST_REGISTRATION_POSTS';
@@ -9,15 +9,29 @@ import { createActions } from 'redux-actions';
 // export const GET_COMMENTS = 'GET_COMMENTS';
 // export const GET_RATING = 'GET_RATING';
 
-export const { loginUser, logoutUser, requestPosts, requestRegisrtationPosts, getFilms, getFilm, getComments, getRating } = createActions({
-  LOGIN_USER: data => ({ data }),
-  LOGOUT_USER: () => ({}),
-  REQUEST_POSTS: data => ({ data }),
-  GET_FILMS: films => ({ films }),
-  GET_FILM: film => ({ film }),
-  GET_COMMENTS: comments => ({ comments }),
-  GET_RATING: rating => ({ rating }),
-});
+export const loginRequest = createAction('LOGIN_REQUEST');
+export const loginSuccess = createAction('LOGIN_SUCCESS');
+export const loginFail = createAction('LOGIN_FAIL');
+export const logOut = createAction('LOGOUT_USER');
+export const registerRequest = createAction('REGISTER_REQUEST');
+export const registerSuccess = createAction('REGISTER_SUCCESS');
+export const registerFail = createAction('REGISTER_FAIL');
+export const filmsRequest = createAction('FILMS_REQUEST');
+export const getFilms = createAction('GET_FILMS');
+export const getFilmsFail = createAction('GET_FILMSFAIL');
+export const getFilmRequest = createAction('FILM_REQUEST');
+export const getFilmSuccess = createAction('GET_FILM');
+export const getFail = createAction('GET_FAIL');
+export const createCommentRequest = createAction('CREATE_COMMENT_REQUEST');
+export const getComments = createAction('GET_COMMENTS');
+export const getCommentFail = createAction('GET_COMMENT_FAIL');
+export const createRatingRequest = createAction('CREATE_RATING_REQUEST');
+export const getRating = createAction('GET_RATING');
+export const getRatingFail = createAction('GET_RATNG_FAIL');
+
+// export const { logoutUser, requestPosts } = createActions({
+//   LOGOUT_USER: () => ({}),
+// });
 
 // export function loginUser(mail) {
 //   return {

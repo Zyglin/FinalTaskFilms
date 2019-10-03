@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filmSelector, commentSelector, ratingSelector, mailSelector, jwtSelector } from '../selectors';
 import CurrentFilmView from '../views/CurrentFilm';
-import { getFilmAxios, createCommentAxios, getCommentAxios, createRatingAxios, getRaitingAxios } from '../axios';
+import { getFilmRequest, createCommentRequest, createRatingRequest } from '../actions';
 
 class CurrentFilmContainer extends React.PureComponent {
   constructor(props) {
@@ -16,27 +16,30 @@ class CurrentFilmContainer extends React.PureComponent {
 
   componentDidMount = () => {
     const idFilm = this.props.match.params.id;
-    this.props.getFilmAxios(idFilm, this.props.jwt);
-    this.props.getCommentAxios(idFilm, this.props.jwt);
-    this.props.getRaitingAxios(idFilm, this.props.jwt);
+    const data = { id: idFilm, jwt: this.props.jwt };
+    this.props.getFilmRequest(data);
   };
 
   handleSendRating = event => {
     const idFilm = this.props.match.params.id;
     const rating = {
-      Value: event.target.value,
-      FilmId: this.props.match.params.id,
+      data: {
+        Value: event.target.value,
+        FilmId: idFilm,
+      },
+      jwt: this.props.jwt,
     };
-    this.props.createRatingAxios(rating, idFilm, this.props.jwt);
+    this.props.createRatingRequest(rating);
   };
 
   handleSendComment = () => {
     const idFilm = this.props.match.params.id;
     const comment = {
-      Description: this.state.value,
-      FilmId: idFilm,
+      data: { Description: this.state.value, FilmId: idFilm },
+      jwt: this.props.jwt,
     };
-    this.props.createCommentAxios(comment, idFilm, this.props.jwt).then(this.setState({ value: '' }));
+    this.props.createCommentRequest(comment);
+    this.setState({ value: '' });
   };
 
   handleChange = event => {
@@ -48,7 +51,6 @@ class CurrentFilmContainer extends React.PureComponent {
   };
 
   render() {
-    console.log(this.props.comments);
     return (
       <CurrentFilmView
         films={this.props.films}
@@ -76,20 +78,16 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  createCommentAxios: (comment, id, ownToken) => dispatch(createCommentAxios(comment, id, ownToken)),
-  getFilmAxios: (id, ownToken) => dispatch(getFilmAxios(id, ownToken)),
-  getCommentAxios: (id, ownToken) => dispatch(getCommentAxios(id, ownToken)),
-  createRatingAxios: (rating, id, ownToken) => dispatch(createRatingAxios(rating, id, ownToken)),
-  getRaitingAxios: (id, ownToken) => dispatch(getRaitingAxios(id, ownToken)),
+  createCommentRequest: comment => dispatch(createCommentRequest(comment)),
+  getFilmRequest: data => dispatch(getFilmRequest(data)),
+  createRatingRequest: rating => dispatch(createRatingRequest(rating)),
 });
 
 CurrentFilmContainer.propTypes = {
   match: PropTypes.any,
-  getFilmAxios: PropTypes.func,
-  getCommentAxios: PropTypes.func,
-  createCommentAxios: PropTypes.func,
-  createRatingAxios: PropTypes.func,
-  getRaitingAxios: PropTypes.func,
+  getFilmRequest: PropTypes.func,
+  createCommentRequest: PropTypes.func,
+  createRatingRequest: PropTypes.func,
   rating: PropTypes.array,
   films: PropTypes.object,
   comments: PropTypes.array,

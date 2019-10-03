@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import FilmListView from '../views/FilmList';
 import { filmSelector, jwtSelector } from '../selectors';
-import { getFilmsAxios } from '../axios';
+import { filmsRequest } from '../actions';
 
 class FilmsListContainer extends React.PureComponent {
   componentDidMount = () => {
-    this.props.getFilmsAxios(this.props.jwt);
+    this.props.filmsRequest(this.props.jwt);
   };
 
   render() {
@@ -23,11 +23,11 @@ function mapStateToProps(state) {
 }
 
 const mapDispatchToProps = dispatch => ({
-  getFilmsAxios: ownToken => dispatch(getFilmsAxios(ownToken)),
+  filmsRequest: ownToken => dispatch(filmsRequest(ownToken)),
 });
 
 FilmsListContainer.propTypes = {
-  getFilmsAxios: PropTypes.func,
+  filmsRequest: PropTypes.func,
   films: PropTypes.array,
   jwt: PropTypes.string,
 };
