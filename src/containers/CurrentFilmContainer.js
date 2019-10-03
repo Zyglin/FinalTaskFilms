@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { filmSelector, commentSelector, ratingSelector, mailSelector, jwtSelector } from '../selectors';
+import { filmSelector, commentSelector, ratingSelector, mailSelector } from '../selectors';
 import CurrentFilmView from '../views/CurrentFilm';
-import { getFilmRequest, createCommentRequest, createRatingRequest } from '../actions';
+import { filmRequest, createCommentRequest, createRatingRequest } from '../actions';
 
 class CurrentFilmContainer extends React.PureComponent {
   constructor(props) {
@@ -16,18 +16,14 @@ class CurrentFilmContainer extends React.PureComponent {
 
   componentDidMount = () => {
     const idFilm = this.props.match.params.id;
-    const data = { id: idFilm, jwt: this.props.jwt };
-    this.props.getFilmRequest(data);
+    this.props.filmRequest(idFilm);
   };
 
   handleSendRating = event => {
     const idFilm = this.props.match.params.id;
     const rating = {
-      data: {
-        Value: event.target.value,
-        FilmId: idFilm,
-      },
-      jwt: this.props.jwt,
+      Value: event.target.value,
+      FilmId: idFilm,
     };
     this.props.createRatingRequest(rating);
   };
@@ -35,8 +31,8 @@ class CurrentFilmContainer extends React.PureComponent {
   handleSendComment = () => {
     const idFilm = this.props.match.params.id;
     const comment = {
-      data: { Description: this.state.value, FilmId: idFilm },
-      jwt: this.props.jwt,
+      Description: this.state.value,
+      FilmId: idFilm,
     };
     this.props.createCommentRequest(comment);
     this.setState({ value: '' });
@@ -73,26 +69,24 @@ function mapStateToProps(state) {
     comments: commentSelector(state),
     rating: ratingSelector(state),
     mail: mailSelector(state),
-    jwt: jwtSelector(state),
   };
 }
 
 const mapDispatchToProps = dispatch => ({
   createCommentRequest: comment => dispatch(createCommentRequest(comment)),
-  getFilmRequest: data => dispatch(getFilmRequest(data)),
+  filmRequest: data => dispatch(filmRequest(data)),
   createRatingRequest: rating => dispatch(createRatingRequest(rating)),
 });
 
 CurrentFilmContainer.propTypes = {
   match: PropTypes.any,
-  getFilmRequest: PropTypes.func,
+  filmRequest: PropTypes.func,
   createCommentRequest: PropTypes.func,
   createRatingRequest: PropTypes.func,
   rating: PropTypes.array,
   films: PropTypes.object,
   comments: PropTypes.array,
   mail: PropTypes.string,
-  jwt: PropTypes.string,
 };
 
 export default connect(

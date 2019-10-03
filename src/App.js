@@ -8,7 +8,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as formReducer } from 'redux-form';
-import { mySaga } from './sagas';
+import { mySaga } from './sagas/index';
 import loginReducer from './reducer/DataEnterReducer';
 import reducer from './reducer';
 import AppRouter from './AppRouter';

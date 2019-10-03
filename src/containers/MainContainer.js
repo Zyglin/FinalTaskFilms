@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainView from '../views/MainRedux';
-import { jwtSelector, mailSelector } from '../selectors';
+import { mailSelector } from '../selectors';
 import { logOut } from '../actions';
 
 class MainContainer extends React.PureComponent {
@@ -22,7 +22,6 @@ const mapDispatchToProps = dispatch => ({
 
 function mapStateToProps(state) {
   return {
-    jwt: jwtSelector(state),
     mail: mailSelector(state),
   };
 }
