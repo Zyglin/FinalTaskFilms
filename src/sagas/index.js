@@ -1,6 +1,7 @@
-import { takeEvery } from 'redux-saga/effects';
+import { takeEvery, all } from 'redux-saga/effects';
 import lodash from 'lodash';
-import * as callMethods from './callMethods';
+import * as callMethods from './callMethodsLogRegCreate';
+import { mySagaFilm } from './GenericSagaforCurrentFilm';
 
 export function* mySagaGeneric(action) {
   const { payload, type } = action;
@@ -9,14 +10,12 @@ export function* mySagaGeneric(action) {
   yield request;
 }
 
-export function* mySaga(action) {
+export function* mySagaAll(action) {
   yield takeEvery(({ type }) => /_REQUEST$/g.test(type), mySagaGeneric);
-  // yield takeEvery(loginRequest, axiosPosts);
-  // yield takeEvery(filmsRequest, getFilmsAxios);
-  // yield takeEvery(getFilmRequest, getFilmAxios);
-  // yield takeEvery(registerRequest, axiosRegisterPosts);
-  // yield takeEvery(createCommentRequest, createCommentAxios);
-  // yield takeEvery(createRatingRequest, createRatingAxios);
+}
+
+export function* rootSaga() {
+  yield all([mySagaAll(), mySagaFilm()]);
 }
 // thunk
 // export function getRaitingAxios(id, ownToken) {

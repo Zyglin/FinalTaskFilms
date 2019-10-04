@@ -7,8 +7,11 @@ const ratingReducer = handleActions(
     CREATE_RATING_REQUEST: (state, action) => {
       console.log(action);
     },
-    GET_RATING: (state, action) => action.payload,
-    GET_RATNG_FAIL: (state, action) => action.payload,
+    RATING_REQUESTFORFILM: (state, action) => {
+      console.log(action);
+    },
+    RATING_SUCCESS: (state, action) => action.payload,
+    RATNG_FAIL: (state, action) => action.payload,
   },
   { initialState }
 );

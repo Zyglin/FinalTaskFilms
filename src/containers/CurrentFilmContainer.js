@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { filmSelector, commentSelector, ratingSelector, mailSelector } from '../selectors';
 import CurrentFilmView from '../views/CurrentFilm';
-import { filmRequest, createCommentRequest, createRatingRequest } from '../actions';
+import { getRatings, getComments, filmRequest, createCommentRequest, createRatingRequest } from '../actions';
 
 class CurrentFilmContainer extends React.PureComponent {
   constructor(props) {
@@ -17,6 +17,8 @@ class CurrentFilmContainer extends React.PureComponent {
   componentDidMount = () => {
     const idFilm = this.props.match.params.id;
     this.props.filmRequest(idFilm);
+    this.props.getComments(idFilm);
+    this.props.getRatings(idFilm);
   };
 
   handleSendRating = event => {
@@ -75,12 +77,16 @@ function mapStateToProps(state) {
 const mapDispatchToProps = dispatch => ({
   createCommentRequest: comment => dispatch(createCommentRequest(comment)),
   filmRequest: data => dispatch(filmRequest(data)),
+  getComments: data => dispatch(getComments(data)),
+  getRatings: data => dispatch(getRatings(data)),
   createRatingRequest: rating => dispatch(createRatingRequest(rating)),
 });
 
 CurrentFilmContainer.propTypes = {
   match: PropTypes.any,
   filmRequest: PropTypes.func,
+  getRatings: PropTypes.func,
+  getComments: PropTypes.func,
   createCommentRequest: PropTypes.func,
   createRatingRequest: PropTypes.func,
   rating: PropTypes.array,

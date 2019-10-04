@@ -7,8 +7,11 @@ const commentReducer = handleActions(
     CREATE_COMMENT_REQUEST: (state, action) => {
       console.log(action);
     },
-    GET_COMMENTS: (state, action) => [...action.payload],
-    GET_COMMENT_FAIL: (state, action) => action.payload,
+    COMMENTS_REQUESTFORFILM: (state, action) => {
+      console.log(action);
+    },
+    COMMENTS_SUCCESS: (state, action) => [...action.payload],
+    COMMENTS_FAIL: (state, action) => action.payload,
   },
   { initialState }
 );

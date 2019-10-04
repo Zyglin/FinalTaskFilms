@@ -8,7 +8,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { reducer as formReducer } from 'redux-form';
-import { mySaga } from './sagas/index';
+import { rootSaga } from './sagas/index';
 import loginReducer from './reducer/DataEnterReducer';
 import reducer from './reducer';
 import AppRouter from './AppRouter';
@@ -36,7 +36,7 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const saga = createSagaMiddleware();
 const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(saga)));
 const persistor = persistStore(store);
-saga.run(mySaga);
+saga.run(rootSaga);
 class App extends React.Component {
   render() {
     return (
