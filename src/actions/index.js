@@ -23,11 +23,12 @@ export const filmRequest = createAction('FILM_REQUESTFORFILM');
 export const getFilmSuccess = createAction('FILM_SUCCESS');
 export const getFail = createAction('FILM_FAIL');
 export const getComments = createAction('COMMENTS_REQUESTFORFILM');
-export const createCommentRequest = createAction('CREATE_COMMENT_REQUEST');
+export const createCommentRequest = createAction('CREATE_COMMENTS_REQUESTFORFILM');
+export const createCommentSuccess = createAction('CREATE_COMMENTS_SUCCESS');
 export const getCommentsSuccess = createAction('COMMENTS_SUCCESS');
 export const getCommentFail = createAction('COMMENTS_FAIL');
 export const getRatings = createAction('RATING_REQUESTFORFILM');
-export const createRatingRequest = createAction('CREATE_RATING_REQUEST');
+export const createRatingRequest = createAction('CREATE_RATING_REQUESTFORFILM');
 export const getRatingSuccess = createAction('RATING_SUCCESS');
 export const getRatingFail = createAction('RATNG_FAIL');
 

@@ -5,14 +5,14 @@ import { jwtSelector } from '../selectors';
 
 export function* mySagaGenericFilm(action) {
   const { payload, type } = action;
-  console.log(type);
   const method = lodash.camelCase(type);
-  console.log(method);
   const token = yield select(jwtSelector);
   const request = callMethods[method](payload, token);
   try {
     const response = yield request;
     const successType = action.type.replace('_REQUESTFORFILM', '_SUCCESS');
+    console.log(successType);
+    console.log(response);
     yield put({ type: successType, payload: response.data });
   } catch (err) {
     const failedType = action.type.replace('_REQUESTFORFILM', '_FAIL');
@@ -22,4 +22,6 @@ export function* mySagaGenericFilm(action) {
 
 export function* mySagaFilm(action) {
   yield takeEvery(({ type }) => /_REQUESTFORFILM$/g.test(type), mySagaGenericFilm);
+  yield takeEvery('CREATE_COMMENTS_SUCCESS', callMethods.createCommentSuccess);
+  yield takeEvery('CREATE_RATING_SUCCESS', callMethods.createRatingSuccess);
 }

@@ -6,11 +6,14 @@ import { registerRequest } from '../actions';
 import { loginSelector } from '../selectors';
 
 class RegistrationReduxFormContainer extends React.PureComponent {
-  handleSubmit = values => {
-    this.props.registerRequest(values);
+  componentDidUpdate() {
     if (this.props.registerStatus === 200) {
       this.props.history.push('/');
     }
+  }
+
+  handleSubmit = values => {
+    this.props.registerRequest(values);
   };
 
   render() {

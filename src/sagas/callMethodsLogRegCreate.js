@@ -1,7 +1,6 @@
-import { call, put, select } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import * as axiosMethods from '../axios';
-import { loginSuccess, loginFail, registerSuccess, registerFail, getCommentsSuccess, getCommentFail, getRating, getRatingFail } from '../actions';
-import { jwtSelector } from '../selectors';
+import { loginSuccess, loginFail, registerSuccess, registerFail } from '../actions';
 
 export function* loginRequest(payload) {
   try {
@@ -16,31 +15,11 @@ export function* loginRequest(payload) {
 
 export function* registerRequest(payload) {
   try {
+    console.log(payload);
     const register = yield call(axiosMethods.axiosForLoginAndRegistration, 'http://localhost:50740/api/registration', payload, 'post');
+    console.log(register);
     yield put(registerSuccess(register.status));
   } catch (e) {
     yield put(registerFail(e));
-  }
-}
-
-export function* createCommentRequest(payload) {
-  try {
-    const token = yield select(jwtSelector);
-    yield call(axiosMethods.axiosCreatePost, 'http://localhost:50740/api/comment', payload, 'post', token);
-    const allComments = yield call(axiosMethods.axiosGet, `http://localhost:50740/api/comment/${payload.FilmId}`, 'get', token);
-    yield put(getCommentsSuccess(allComments.data));
-  } catch (e) {
-    yield put(getCommentFail(e));
-  }
-}
-
-export function* createRatingRequest(payload) {
-  try {
-    const token = yield select(jwtSelector);
-    yield call(axiosMethods.axiosCreatePost, 'http://localhost:50740/api/rating', payload, 'post', token);
-    const ratings = yield call(axiosMethods.axiosGet, `http://localhost:50740/api/rating/${payload.FilmId}`, 'get', token);
-    yield put(getRating(ratings.data));
-  } catch (e) {
-    yield put(getRatingFail(e));
   }
 }
