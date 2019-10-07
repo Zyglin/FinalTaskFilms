@@ -7,35 +7,53 @@ import RegistrationForm from './containers/RegistrationFormContainer';
 import Main from './containers/MainContainer';
 import FilmList from './containers/FilmsListContainer';
 import CurrentFilm from './containers/CurrentFilmContainer';
+import EditUser from './containers/EditUserContainer';
+import useStyles from './style';
 
-const AppRouter = () => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={LoginForm} />
-      <Route exact path="/registration" component={RegistrationForm} />
-      <PrivateRoute
-        exact
-        path="/main"
-        component={props => (
-          <div>
-            <Main {...props} />
-            <FilmList {...props} />
-          </div>
-        )}
-      />
-      <PrivateRoute
-        path="/:id"
-        component={props => {
-          return (
-            <div>
+const AppRouter = () => {
+  const classes = useStyles();
+
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={LoginForm} />
+        <Route exact path="/registration" component={RegistrationForm} />
+        <PrivateRoute
+          exact
+          path="/main"
+          component={props => (
+            <div className={classes.container}>
               <Main {...props} />
-              <CurrentFilm {...props} />
+              <FilmList {...props} />
             </div>
-          );
-        }}
-      />
-      <Route path="*" component={NotFound} />
-    </Switch>
-  </Router>
-);
+          )}
+        />
+        <PrivateRoute
+          exact
+          path="/editUser"
+          component={props => {
+            return (
+              <div className={classes.container}>
+                <Main {...props} />
+                <EditUser {...props} />
+              </div>
+            );
+          }}
+        />
+        <PrivateRoute
+          path="/:id"
+          component={props => {
+            return (
+              <div>
+                <Main {...props} />
+                <CurrentFilm {...props} />
+              </div>
+            );
+          }}
+        />
+        <Route path="*" component={NotFound} />
+      </Switch>
+    </Router>
+  );
+};
 export default AppRouter;

@@ -12,8 +12,12 @@ class MainContainer extends React.PureComponent {
     this.props.history.push('/');
   };
 
+  handleClickCabinet = event => {
+    this.props.history.push('/editUser');
+  };
+
   render() {
-    return <MainView onHandleClick={this.handleClick} mail={this.props.mail} />;
+    return <MainView onHandleClick={this.handleClick} mail={this.props.mail} onHandleClickCabinet={this.handleClickCabinet} />;
   }
 }
 const mapDispatchToProps = dispatch => ({

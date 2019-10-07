@@ -2,15 +2,16 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles(theme => ({
   container: {
-    paddingTop: '15%',
-    height: '500px',
+    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    background: 'linear-gradient(left, black 5%, #4CCEB2 50%, black)',
   },
 
   form: {
-    height: '500px',
+    paddingTop: '100px',
+    height: '650px',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -41,6 +42,15 @@ const useStyles = makeStyles(theme => ({
   textField: {
     width: '300px',
     color: 'white',
+  },
+  dragAndDrop: {
+    border: '1px solid white',
+    width: '600px',
+    color: 'white',
+    height: '200px',
+    textAlign: 'center',
+    verticalAlign: 'middle',
+    lineHeight: '200px',
   },
 }));
 

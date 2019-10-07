@@ -13,7 +13,7 @@ const filmList = props => {
   const classes = useStyles();
   const films = Array.from(props.films);
   return (
-    <div>
+    <div className={classes.div}>
       <div className={classes.flexs}>
         {films.map(film => {
           const key = films.id;

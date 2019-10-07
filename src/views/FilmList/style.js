@@ -4,10 +4,14 @@ const useStyles = makeStyles(theme => ({
   a: {
     textDecoration: 'none',
   },
+  div: {
+    height: '100%',
+    paddingTop: '30px',
+    background: '-webkit-radial-gradient(#4CCEB2, #2F8FD8)',
+  },
   flexs: {
     display: 'flex',
     flexWrap: 'wrap',
-    marginTop: '30px',
     marginLeft: '60px',
   },
   cardMediastyle: {

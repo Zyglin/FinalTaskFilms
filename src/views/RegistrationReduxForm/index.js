@@ -12,8 +12,10 @@ import useStyles from './style';
 const required = value => (value || typeof value === 'number' ? undefined : 'Required');
 const email = value => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined);
 const minLength = min => value => (value && value.length < min ? `Must be ${min} characters or less` : undefined);
+const phoneNumber = value => (value && !/^[+]+[0-9]{12}$/.test(value) ? 'Invalid Phone number' : undefined);
 const matchPassword = (value, allValues) => (value !== allValues.Password ? 'This field must match with your password field' : undefined);
 const minLength6 = minLength(6);
+const minLength12 = minLength(12);
 
 const RegistrationReduxFormView = props => {
   const classes = useStyles();
@@ -25,6 +27,12 @@ const RegistrationReduxFormView = props => {
           <div>
             {props.mail}
             <Field className={classes.textField} name="Email" component={renderTextField} label="Email" type="email" validate={[required, email]} />
+          </div>
+          <div>
+            <Field className={classes.textField} name="FullName" label="FullName" component={renderTextField} type="text" validate={[required, minLength12]} />
+          </div>
+          <div>
+            <Field className={classes.textField} name="PhoneNumber" label="PhoneNumber" component={renderTextField} type="tel" validate={[required, phoneNumber]} />
           </div>
           <div>
             <Field className={classes.textField} name="Password" label="Password" component={renderTextField} type="password" validate={[required, minLength6]} />

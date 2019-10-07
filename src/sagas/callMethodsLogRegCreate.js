@@ -15,9 +15,7 @@ export function* loginRequest(payload) {
 
 export function* registerRequest(payload) {
   try {
-    console.log(payload);
     const register = yield call(axiosMethods.axiosForLoginAndRegistration, 'http://localhost:50740/api/registration', payload, 'post');
-    console.log(register);
     yield put(registerSuccess(register.status));
   } catch (e) {
     yield put(registerFail(e));

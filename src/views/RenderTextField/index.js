@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 import useStyles from './style';
 
-const RenderTextField = ({ label, input, meta: { touched, invalid, error }, ...custom }) => {
+const RenderTextField = ({ label, input, data, meta: { touched, invalid, error }, ...custom }) => {
   const classes = useStyles();
   return (
     <TextField
@@ -15,7 +15,7 @@ const RenderTextField = ({ label, input, meta: { touched, invalid, error }, ...c
       }}
       variant="outlined"
       label={label}
-      placeholder={label}
+      placeholder={data}
       error={touched && invalid}
       helperText={touched && error}
       {...input}
@@ -29,6 +29,7 @@ RenderTextField.propTypes = {
   label: PropTypes.any,
   type: PropTypes.any,
   meta: PropTypes.any,
+  data: PropTypes.any,
 };
 
 export default RenderTextField;

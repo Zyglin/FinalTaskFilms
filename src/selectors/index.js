@@ -34,3 +34,11 @@ export const jwtSelector = createSelector(
   loginItemSelector,
   item => item && item.jwt
 );
+export const fullNameSelector = createSelector(
+  loginItemSelector,
+  item => item && item.fullName
+);
+export const numberSelector = createSelector(
+  loginItemSelector,
+  item => item && item.number
+);

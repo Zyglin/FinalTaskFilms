@@ -31,6 +31,9 @@ export const getRatings = createAction('RATING_REQUESTFORFILM');
 export const createRatingRequest = createAction('CREATE_RATING_REQUESTFORFILM');
 export const getRatingSuccess = createAction('RATING_SUCCESS');
 export const getRatingFail = createAction('RATNG_FAIL');
+export const editUserRequest = createAction('EDIT_USER_REQUESTFORFILM');
+export const editUserSuccess = createAction('EDIT_USER_SUCCESS');
+export const editUserFail = createAction('EDIT_USER_FAIL');
 
 // export const { logoutUser, requestPosts } = createActions({
 //   LOGOUT_USER: () => ({}),
