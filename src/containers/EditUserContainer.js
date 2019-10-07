@@ -22,16 +22,18 @@ class EditUserContainer extends React.PureComponent {
   handleSubmit = values => {
     console.log('values', values);
     const reader = new FileReader();
-    reader.readAsDataURL(this.state.file[0]);
-    reader.onloadend = () => {
-      const file = reader.result;
-      console.log('BASE64', file);
-      const filebase64 = { Filebase64: file };
-      const jwt = { jwt: this.props.jwt };
-      const obj = Object.assign(values, filebase64, jwt);
-      console.log('asdasdasdasdasdas', obj);
-      this.props.editUserRequest(obj);
-    };
+    if (this.state.file !== null) {
+      reader.readAsDataURL(this.state.file[0]);
+      reader.onloadend = () => {
+        const file = reader.result;
+        console.log('BASE64', file);
+        const filebase64 = { Filebase64: file };
+        const jwt = { jwt: this.props.jwt };
+        const obj = Object.assign(values, filebase64, jwt);
+        console.log('asdasdasdasdasdas', obj);
+        this.props.editUserRequest(obj);
+      };
+    }
   };
 
   render() {

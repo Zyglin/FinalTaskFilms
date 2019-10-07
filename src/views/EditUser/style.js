@@ -6,7 +6,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
-    background: 'linear-gradient(left, black 5%, #4CCEB2 50%, black)',
+    background: 'SkyBlue',
   },
 
   form: {
