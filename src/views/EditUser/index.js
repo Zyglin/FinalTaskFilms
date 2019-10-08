@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 /* eslint-disable import/no-mutable-exports */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -15,14 +16,19 @@ const minLength12 = minLength(12);
 
 const editUserView = props => {
   const classes = useStyles();
-  const { handleSubmit } = props;
+  const { handleSubmit, imageExist } = props;
+  const textForDND = () => {
+    const result = imageExist === null ? 'Drop avatar for user here!' : imageExist[0].type.split('/')[0] !== 'image' ? 'Wrong file format' : `Avatar uploaded ${imageExist[0].name}`;
+    return result;
+  };
   console.log(props);
   return (
     <div className={classes.container}>
       <Form className={classes.form} onSubmit={handleSubmit}>
         <FileDrop name="FileAvatar" className={classes.dragAndDrop} onDrop={props.onHandleDrop}>
-          Drop avatar for user here!
+          {textForDND()}
         </FileDrop>
+
         <div>
           <Field className={classes.textField} name="FullName" label="FullName" data={props.fullName} component={renderTextField} type="text" validate={[required, minLength12]} />
         </div>
@@ -50,6 +56,7 @@ editUserView.propTypes = {
   handleSubmit: PropTypes.func,
   fullName: PropTypes.string,
   number: PropTypes.string,
+  imageExist: PropTypes.any,
 };
 
 let EditUserForm = editUserView;

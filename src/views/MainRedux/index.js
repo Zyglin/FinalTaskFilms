@@ -4,8 +4,8 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import IconButton from '@material-ui/core/IconButton';
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import MenuItem from '@material-ui/core/MenuItem';
+import Img from 'react-image';
 import Menu from '@material-ui/core/Menu';
 import useStyles from './style';
 
@@ -37,7 +37,7 @@ const MainRedux = props => {
         <div>{props.mail}</div>
         <div className={classes.sectionDesktop}>
           <IconButton edge="end" aria-label="account of current user" aria-controls="primary-search-account-menu" aria-haspopup="true" color="inherit" onClick={handleProfileMenuOpen}>
-            <AccountCircle />
+            <Img className={classes.imageWidth} src={props.avatar} />
           </IconButton>
         </div>
       </Toolbar>
@@ -61,6 +61,7 @@ MainRedux.propTypes = {
   onHandleClick: PropTypes.func,
   onHandleClickCabinet: PropTypes.func,
   mail: PropTypes.string,
+  avatar: PropTypes.string,
 };
 
 export default MainRedux;

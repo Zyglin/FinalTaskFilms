@@ -65,6 +65,10 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     justifyContent: 'center',
   },
+  divImage: {
+    marginTop: '10px',
+    width: '40px',
+  },
 }));
 
 export default useStyles;

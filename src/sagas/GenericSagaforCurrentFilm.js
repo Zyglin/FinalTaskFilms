@@ -27,4 +27,5 @@ export function* mySagaFilm(action) {
   yield takeEvery(({ type }) => /_REQUESTFORFILM$/g.test(type), mySagaGenericFilm);
   yield takeEvery('CREATE_COMMENTS_SUCCESS', callMethods.createCommentSuccess);
   yield takeEvery('CREATE_RATING_SUCCESS', callMethods.createRatingSuccess);
+  yield takeEvery('EDIT_USER_SUCCESS', callMethods.editUserSuccess);
 }

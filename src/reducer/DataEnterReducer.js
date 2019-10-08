@@ -14,6 +14,8 @@ const dataReducer = handleActions(
     REGISTER_SUCCESS: (state, action) => action.payload,
     REGISTER_FAIL: (state, action) => action.payload,
     LOGOUT_USER: (state, action) => null,
+    EDIT_USER_UPDATE_REQUESTFORFILM: (state, action) => state,
+    EDIT_USER_UPDATE_SUCCESS: (state, action) => action.payload,
   },
   { initialState }
 );

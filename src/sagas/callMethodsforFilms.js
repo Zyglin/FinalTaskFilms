@@ -30,10 +30,19 @@ export function* editUserRequestforfilm(payload, token) {
   return yield call(axiosMethods.axiosCreatePost, 'http://localhost:50740/api/edituser', payload, 'post', token);
 }
 
+export function* editUserUpdateRequestforfilm(payload, token) {
+  console.log(token);
+  return yield call(axiosMethods.axiosGet, 'http://localhost:50740/api/edituser', 'get', token);
+}
+
 export function* createCommentSuccess(action) {
   yield put({ type: 'COMMENTS_REQUESTFORFILM', payload: action.payload });
 }
 
 export function* createRatingSuccess(action) {
   yield put({ type: 'RATING_REQUESTFORFILM', payload: action.payload });
+}
+
+export function* editUserSuccess() {
+  yield put({ type: 'EDIT_USER_UPDATE_REQUESTFORFILM' });
 }

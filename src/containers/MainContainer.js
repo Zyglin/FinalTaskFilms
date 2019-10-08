@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainView from '../views/MainRedux';
-import { mailSelector } from '../selectors';
+import { mailSelector, imageSelector } from '../selectors';
 import { logOut } from '../actions';
 
 class MainContainer extends React.PureComponent {
@@ -17,7 +17,7 @@ class MainContainer extends React.PureComponent {
   };
 
   render() {
-    return <MainView onHandleClick={this.handleClick} mail={this.props.mail} onHandleClickCabinet={this.handleClickCabinet} />;
+    return <MainView onHandleClick={this.handleClick} avatar={this.props.avatar} mail={this.props.mail} onHandleClickCabinet={this.handleClickCabinet} />;
   }
 }
 const mapDispatchToProps = dispatch => ({
@@ -27,6 +27,7 @@ const mapDispatchToProps = dispatch => ({
 function mapStateToProps(state) {
   return {
     mail: mailSelector(state),
+    avatar: imageSelector(state),
   };
 }
 
@@ -34,6 +35,7 @@ MainContainer.propTypes = {
   history: PropTypes.any,
   logOut: PropTypes.func,
   mail: PropTypes.string,
+  avatar: PropTypes.string,
 };
 
 export default connect(

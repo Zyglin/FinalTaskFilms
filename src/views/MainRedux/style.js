@@ -10,6 +10,9 @@ const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1,
   },
+  imageWidth: {
+    width: '30px',
+  },
 }));
 
 export default useStyles;

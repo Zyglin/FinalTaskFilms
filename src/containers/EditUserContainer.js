@@ -20,24 +20,34 @@ class EditUserContainer extends React.PureComponent {
   };
 
   handleSubmit = values => {
-    console.log('values', values);
-    const reader = new FileReader();
-    if (this.state.file !== null) {
-      reader.readAsDataURL(this.state.file[0]);
-      reader.onloadend = () => {
-        const file = reader.result;
-        console.log('BASE64', file);
-        const filebase64 = { Filebase64: file };
-        const jwt = { jwt: this.props.jwt };
-        const obj = Object.assign(values, filebase64, jwt);
-        console.log('asdasdasdasdasdas', obj);
-        this.props.editUserRequest(obj);
-      };
+    console.log(values);
+    const fileImage = this.state.file;
+    if (fileImage !== null) {
+      if (fileImage[0].type.split('/')[0] === 'image') {
+        const reader = new FileReader();
+        reader.readAsDataURL(this.state.file[0]);
+        reader.onloadend = () => {
+          const filebase64 = { Filebase64: reader.result };
+          const jwt = { jwt: this.props.jwt };
+          const obj = Object.assign(values, filebase64, jwt);
+          this.props.editUserRequest(obj);
+        };
+      }
     }
   };
 
   render() {
-    return <EditUserView onHandleDrop={this.handleDrop} onSubmit={this.handleSubmit} jwt={this.props.jwt} fullName={this.props.fullName} number={this.props.number} />;
+    return (
+      <EditUserView
+        onHandleDrop={this.handleDrop}
+        onHandleFormat={this.handleFormat}
+        imageExist={this.state.file}
+        onSubmit={this.handleSubmit}
+        jwt={this.props.jwt}
+        fullName={this.props.fullName}
+        number={this.props.number}
+      />
+    );
   }
 }
 

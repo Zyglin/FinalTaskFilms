@@ -42,3 +42,7 @@ export const numberSelector = createSelector(
   loginItemSelector,
   item => item && item.number
 );
+export const imageSelector = createSelector(
+  loginItemSelector,
+  item => item && item.imageBase64
+);

@@ -7,6 +7,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import Img from 'react-image';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
 import YouTube from 'react-youtube';
@@ -71,7 +72,13 @@ const CurrentFilmView = props => {
           {comments.map(comment => {
             const key = comment.id;
             const commentUser = comment && comment.user && comment.user.email;
-            return <TextField id="textarea" key={key} label={commentUser} value={comment.description} disabled rows="2" multiline className={classes.textField} variant="filled" />;
+            const commentUserAvatar = comment && comment.user && comment.user.filebase64;
+            return (
+              <div key={key}>
+                <Img className={classes.divImage} src={commentUserAvatar} />
+                <TextField id="textarea" key={key} label={commentUser} value={comment.description} disabled rows="2" multiline className={classes.textField} variant="filled" />
+              </div>
+            );
           })}
         </div>
       </div>
