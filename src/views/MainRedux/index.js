@@ -53,6 +53,7 @@ const MainRedux = props => {
       >
         <MenuItem onClick={props.onHandleClick}>Logout {props.mail}</MenuItem>
         <MenuItem onClick={props.onHandleClickCabinet}>{cabinetName(props.mail)}'s Own Cabinet</MenuItem>
+        <MenuItem onClick={props.onHandleClickMenu}>Go to Menu</MenuItem>
       </Menu>
     </AppBar>
   );
@@ -62,6 +63,7 @@ MainRedux.propTypes = {
   onHandleClickCabinet: PropTypes.func,
   mail: PropTypes.string,
   avatar: PropTypes.string,
+  onHandleClickMenu: PropTypes.func,
 };
 
 export default MainRedux;

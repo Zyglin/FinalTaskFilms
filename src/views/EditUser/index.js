@@ -36,10 +36,10 @@ const editUserView = props => {
           <Field className={classes.textField} name="PhoneNumber" label="PhoneNumber" data={props.number} component={renderTextField} type="tel" validate={[required, phoneNumber]} />
         </div>
         <div>
-          <Field className={classes.textField} name="OldPassword" label="Old Password" component={renderTextField} type="password" validate={[required, minLength6]} />
+          <Field className={classes.textField} name="OldPassword" label="Old Password" component={renderTextField} type="password" />
         </div>
         <div>
-          <Field className={classes.textField} name="NewPassword" label="New Password" component={renderTextField} type="password" validate={[required, minLength6]} />
+          <Field className={classes.textField} name="NewPassword" label="New Password" component={renderTextField} type="password" />
         </div>
         <div>
           <Button type="submit" className={classes.button} variant="contained" color="primary">

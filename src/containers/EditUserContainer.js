@@ -5,35 +5,35 @@ import { connect } from 'react-redux';
 import EditUserView from '../views/EditUser';
 import { editUserRequest } from '../actions';
 import { fullNameSelector, numberSelector, jwtSelector } from '../selectors';
-// import { loginRequest } from '../actions';
 
 class EditUserContainer extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
       file: null,
+      correctFile: null,
     };
   }
 
   handleDrop = files => {
     this.setState({ file: files });
+    if (files[0].type.split('/')[0] === 'image') {
+      const reader = new FileReader();
+      reader.readAsDataURL(files[0]);
+      reader.onloadend = () => {
+        this.setState({ correctFile: reader.result });
+      };
+    } else {
+      this.setState({ correctFile: null });
+    }
   };
 
   handleSubmit = values => {
     console.log(values);
-    const fileImage = this.state.file;
-    if (fileImage !== null) {
-      if (fileImage[0].type.split('/')[0] === 'image') {
-        const reader = new FileReader();
-        reader.readAsDataURL(this.state.file[0]);
-        reader.onloadend = () => {
-          const filebase64 = { Filebase64: reader.result };
-          const jwt = { jwt: this.props.jwt };
-          const obj = Object.assign(values, filebase64, jwt);
-          this.props.editUserRequest(obj);
-        };
-      }
-    }
+    const jwt = { jwt: this.props.jwt, Filebase64: this.state.correctFile };
+    const obj = Object.assign(values, jwt);
+    console.log(obj);
+    this.props.editUserRequest(obj);
   };
 
   render() {
