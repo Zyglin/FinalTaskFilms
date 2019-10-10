@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
@@ -8,14 +7,7 @@ import Link from '@material-ui/core/Link';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import renderTextField from '../RenderTextField';
 import useStyles from './style';
-
-const required = value => (value || typeof value === 'number' ? undefined : 'Required');
-const email = value => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined);
-const minLength = min => value => (value && value.length < min ? `Must be ${min} characters or less` : undefined);
-const phoneNumber = value => (value && !/^[+]+[0-9]{12}$/.test(value) ? 'Invalid Phone number' : undefined);
-const matchPassword = (value, allValues) => (value !== allValues.Password ? 'This field must match with your password field' : undefined);
-const minLength6 = minLength(6);
-const minLength12 = minLength(12);
+import { required, email, phoneNumber, minLength12, minLength6, matchPassword } from '../../validation';
 
 const RegistrationReduxFormView = props => {
   const classes = useStyles();

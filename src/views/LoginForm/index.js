@@ -1,4 +1,3 @@
-/* eslint-disable import/no-mutable-exports */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm, Form } from 'redux-form';
@@ -7,11 +6,7 @@ import Button from '@material-ui/core/Button';
 import SupervisedUserCircleIcon from '@material-ui/icons/SupervisedUserCircle';
 import renderTextField from '../RenderTextField';
 import useStyles from './style';
-
-const required = value => (value || typeof value === 'number' ? undefined : 'Required');
-const email = value => (value && !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value) ? 'Invalid email address' : undefined);
-const minLength = min => value => (value && value.length < min ? `Must be ${min} characters or less` : undefined);
-const minLength6 = minLength(6);
+import { required, email, minLength6 } from '../../validation';
 
 const LoginFormView = props => {
   const classes = useStyles();

@@ -26,12 +26,10 @@ export function* createRatingRequestforfilm(payload, token) {
 }
 
 export function* editUserRequestforfilm(payload, token) {
-  console.log(payload);
   return yield call(axiosMethods.axiosCreatePost, 'http://localhost:50740/api/edituser', payload, 'post', token);
 }
 
 export function* editUserUpdateRequestforfilm(payload, token) {
-  console.log(token);
   return yield call(axiosMethods.axiosGet, 'http://localhost:50740/api/edituser', 'get', token);
 }
 

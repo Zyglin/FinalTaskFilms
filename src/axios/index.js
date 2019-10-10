@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import axios from 'axios';
 
 export function axiosForLoginAndRegistration(url, data, method) {

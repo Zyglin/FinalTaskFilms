@@ -1,4 +1,3 @@
-/* eslint-disable no-multi-assign */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -29,10 +28,8 @@ class EditUserContainer extends React.PureComponent {
   };
 
   handleSubmit = values => {
-    console.log(values);
-    const jwt = { jwt: this.props.jwt, Filebase64: this.state.correctFile };
-    const obj = Object.assign(values, jwt);
-    console.log(obj);
+    const correctFile = { Filebase64: this.state.correctFile };
+    const obj = Object.assign(values, correctFile);
     this.props.editUserRequest(obj);
   };
 

@@ -1,5 +1,3 @@
-/* eslint-disable no-nested-ternary */
-/* eslint-disable import/no-mutable-exports */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Field, reduxForm, Form } from 'redux-form';
@@ -7,12 +5,7 @@ import Button from '@material-ui/core/Button';
 import FileDrop from 'react-file-drop';
 import renderTextField from '../RenderTextField';
 import useStyles from './style';
-
-const required = value => (value || typeof value === 'number' ? undefined : 'Required');
-const minLength = min => value => (value && value.length < min ? `Must be ${min} characters or less` : undefined);
-const phoneNumber = value => (value && !/^[+]+[0-9]{12}$/.test(value) ? 'Invalid Phone number' : undefined);
-const minLength6 = minLength(6);
-const minLength12 = minLength(12);
+import { required, minLength12, phoneNumber } from '../../validation';
 
 const editUserView = props => {
   const classes = useStyles();
@@ -21,7 +14,6 @@ const editUserView = props => {
     const result = imageExist === null ? 'Drop avatar for user here!' : imageExist[0].type.split('/')[0] !== 'image' ? 'Wrong file format' : `Avatar uploaded ${imageExist[0].name}`;
     return result;
   };
-  console.log(props);
   return (
     <div className={classes.container}>
       <Form className={classes.form} onSubmit={handleSubmit}>

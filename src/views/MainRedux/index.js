@@ -52,8 +52,8 @@ const MainRedux = props => {
         onClose={handleMenuClose}
       >
         <MenuItem onClick={props.onHandleClick}>Logout {props.mail}</MenuItem>
-        <MenuItem onClick={props.onHandleClickCabinet}>{cabinetName(props.mail)}'s Own Cabinet</MenuItem>
-        <MenuItem onClick={props.onHandleClickMenu}>Go to Menu</MenuItem>
+        <MenuItem onClick={props.onHandleClickCabinet}>{cabinetName(props.mail)}'s own cabinet</MenuItem>
+        <MenuItem onClick={props.onHandleClickMenu}>Go to main window</MenuItem>
       </Menu>
     </AppBar>
   );

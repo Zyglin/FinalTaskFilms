@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-duplicate-props */
 import React from 'react';
 import Rating from '@material-ui/lab/Rating';
 import PropTypes from 'prop-types';
@@ -15,7 +14,6 @@ import useStyles from './style';
 
 const CurrentFilmView = props => {
   const classes = useStyles();
-  console.log(props);
   const comments = Array.from(props.comments);
 
   const { onHandleRoute, onHandleChangeStateComment, onHandleSendComment, onHanleSendRating } = props;
