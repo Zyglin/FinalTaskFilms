@@ -1,16 +1,16 @@
 import { handleActions } from 'redux-actions';
+import * as actions from '../actions';
 
 const initialState = [];
 
 const commentReducer = handleActions(
   {
-    CREATE_COMMENTS_REQUESTFORFILM: (state, action) => action.payload.FilmId,
-    COMMENTS_REQUESTFORFILM: (state, action) => {
-      console.log(action);
-    },
-    CREATE_COMMENTS_SUCCESS: (state, action) => action.payload,
-    COMMENTS_SUCCESS: (state, action) => [...action.payload],
-    COMMENTS_FAIL: (state, action) => action.payload,
+    [actions.createCommentRequest]: (state, action) => state,
+    [actions.getComments]: (state, action) => state,
+    [actions.createCommentSuccess]: (state, action) => [...state],
+    [actions.getCommentsSuccess]: (state, action) => [...action.payload],
+    [actions.getCommentFail]: (state, action) => action.payload,
+    [actions.CommentsClean]: (state, action) => initialState,
   },
   { initialState }
 );

@@ -1,5 +1,6 @@
 import { call, put } from 'redux-saga/effects';
 import * as axiosMethods from '../axios';
+import * as actions from '../actions';
 
 export function* filmsRequestforfilm(payload, token) {
   return yield call(axiosMethods.axiosGet, 'http://localhost:50740/api/films', 'get', token);
@@ -34,13 +35,13 @@ export function* editUserUpdateRequestforfilm(payload, token) {
 }
 
 export function* createCommentSuccess(action) {
-  yield put({ type: 'COMMENTS_REQUESTFORFILM', payload: action.payload });
+  yield put(actions.getComments(action.payload));
 }
 
 export function* createRatingSuccess(action) {
-  yield put({ type: 'RATING_REQUESTFORFILM', payload: action.payload });
+  yield put(actions.getRatings(action.payload));
 }
 
 export function* editUserSuccess() {
-  yield put({ type: 'EDIT_USER_UPDATE_REQUESTFORFILM' });
+  yield put(actions.editUserUpdate());
 }

@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable no-unused-expressions */
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import NotFound from './containers/NotFoundContaner';
@@ -9,6 +11,18 @@ import FilmList from './containers/FilmsListContainer';
 import CurrentFilm from './containers/CurrentFilmContainer';
 import EditUser from './containers/EditUserContainer';
 import useStyles from './style';
+
+const Layout = props => {
+  console.log(props);
+  const classes = useStyles();
+
+  return (
+    <div className={classes.container}>
+      <Main {...props} />
+      {props.children}
+    </div>
+  );
+};
 
 const AppRouter = () => {
   const classes = useStyles();
@@ -22,10 +36,9 @@ const AppRouter = () => {
           exact
           path="/main"
           component={props => (
-            <div className={classes.container}>
-              <Main {...props} />
+            <Layout {...props}>
               <FilmList {...props} />
-            </div>
+            </Layout>
           )}
         />
         <PrivateRoute
@@ -33,10 +46,9 @@ const AppRouter = () => {
           path="/editUser"
           component={props => {
             return (
-              <div className={classes.container}>
-                <Main {...props} />
+              <Layout {...props}>
                 <EditUser {...props} />
-              </div>
+              </Layout>
             );
           }}
         />
@@ -44,10 +56,9 @@ const AppRouter = () => {
           path="/:id"
           component={props => {
             return (
-              <div>
-                <Main {...props} />
+              <Layout {...props}>
                 <CurrentFilm {...props} />
-              </div>
+              </Layout>
             );
           }}
         />

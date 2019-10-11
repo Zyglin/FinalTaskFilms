@@ -1,4 +1,5 @@
 import { handleActions } from 'redux-actions';
+import * as actions from '../actions';
 
 const initialState = {
   user: null,
@@ -7,15 +8,15 @@ const initialState = {
 
 const dataReducer = handleActions(
   {
-    LOGIN_REQUEST: (state, action) => action.payload.data,
-    LOGIN_SUCCESS: (state, action) => action.payload,
-    LOGIN_FAIL: (state, action) => action.payload,
-    REGISTER_REQUEST: (state, action) => action.payload.data,
-    REGISTER_SUCCESS: (state, action) => action.payload,
-    REGISTER_FAIL: (state, action) => action.payload,
-    LOGOUT_USER: (state, action) => null,
-    EDIT_USER_UPDATE_REQUESTFORFILM: (state, action) => state,
-    EDIT_USER_UPDATE_SUCCESS: (state, action) => action.payload,
+    [actions.loginRequest]: (state, action) => action.payload.data,
+    [actions.loginSuccess]: (state, action) => action.payload,
+    [actions.loginFail]: (state, action) => action.payload,
+    [actions.registerRequest]: (state, action) => action.payload.data,
+    [actions.registerSuccess]: (state, action) => action.payload,
+    [actions.registerFail]: (state, action) => action.payload,
+    [actions.logOut]: (state, action) => null,
+    [actions.editUserUpdate]: (state, action) => state,
+    [actions.editUserUpdateSuccess]: (state, action) => action.payload,
   },
   { initialState }
 );

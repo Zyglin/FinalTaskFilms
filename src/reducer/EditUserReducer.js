@@ -1,14 +1,13 @@
 import { handleActions } from 'redux-actions';
+import * as actions from '../actions';
 
 const initialState = {};
 
 const editUserReducer = handleActions(
   {
-    EDIT_USER_REQUESTFORFILM: (state, action) => {
-      console.log(action);
-    },
-    EDIT_USER_SUCCESS: (state, action) => action.payload,
-    EDIT_USER_FAIL: (state, action) => action.payload,
+    [actions.editUserRequest]: (state, action) => state,
+    [actions.editUserSuccess]: (state, action) => action.payload,
+    [actions.editUserFail]: (state, action) => action.payload,
   },
   { initialState }
 );

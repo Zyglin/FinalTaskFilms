@@ -6,6 +6,7 @@ import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import { Link } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
+import { ClipLoader } from 'react-spinners';
 import Img from 'react-image';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
@@ -14,8 +15,7 @@ import useStyles from './style';
 
 const CurrentFilmView = props => {
   const classes = useStyles();
-  const comments = Array.from(props.comments);
-
+console.log(props.comments);
   const { onHandleRoute, onHandleChangeStateComment, onHandleSendComment, onHanleSendRating } = props;
   const opts = {
     height: '390',
@@ -67,17 +67,20 @@ const CurrentFilmView = props => {
           </Button>
         </div>
         <div className={classes.divFortextField}>
-          {comments.map(comment => {
-            const key = comment.id;
-            const commentUser = comment && comment.user && comment.user.email;
-            const commentUserAvatar = comment && comment.user && comment.user.filebase64;
-            return (
-              <div key={key}>
-                <Img className={classes.divImage} src={commentUserAvatar} />
-                <TextField id="textarea" key={key} label={commentUser} value={comment.description} disabled rows="2" multiline className={classes.textField} variant="filled" />
-              </div>
-            );
-          })}
+          {props.comments.length > 0 ? (
+            props.comments.map(comment => {
+              const commentUser = comment && comment.user && comment.user.email;
+              const commentUserAvatar = comment && comment.user && comment.user.filebase64;
+              return (
+                <div key={comment.id}>
+                  <Img className={classes.divImage} src={commentUserAvatar} />
+                  <TextField id="textarea" key={comment.id} label={commentUser} value={comment.description} disabled rows="2" multiline className={classes.textField} variant="filled" />
+                </div>
+              );
+            })
+          ) : (
+            <ClipLoader color="blue" />
+          )}
         </div>
       </div>
     </div>
@@ -90,7 +93,7 @@ CurrentFilmView.propTypes = {
   onHanleSendRating: PropTypes.func,
   rating: PropTypes.number,
   films: PropTypes.object,
-  comments: PropTypes.array,
+  comments: PropTypes.array.isRequired,
   commentValue: PropTypes.string,
   onHandleRoute: PropTypes.func,
   mail: PropTypes.string,

@@ -83,15 +83,15 @@ const mapDispatchToProps = dispatch => ({
 
 CurrentFilmContainer.propTypes = {
   match: PropTypes.any,
-  filmRequest: PropTypes.func,
-  getRatings: PropTypes.func,
-  getComments: PropTypes.func,
-  createCommentRequest: PropTypes.func,
-  createRatingRequest: PropTypes.func,
-  rating: PropTypes.array,
-  films: PropTypes.object,
-  comments: PropTypes.array,
-  mail: PropTypes.string,
+  filmRequest: PropTypes.func.isRequired,
+  getRatings: PropTypes.func.isRequired,
+  getComments: PropTypes.func.isRequired,
+  createCommentRequest: PropTypes.func.isRequired,
+  createRatingRequest: PropTypes.func.isRequired,
+  rating: PropTypes.array.isRequired,
+  films: PropTypes.object.isRequired,
+  comments: PropTypes.array.isRequired,
+  mail: PropTypes.string.isRequired,
 };
 
 export default connect(

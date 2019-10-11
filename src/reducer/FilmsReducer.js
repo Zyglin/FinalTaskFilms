@@ -1,19 +1,16 @@
 import { handleActions } from 'redux-actions';
+import * as actions from '../actions';
 
 const initialState = [];
 
 const filmReducer = handleActions(
   {
-    FILMS_REQUESTFORFILM: (state, action) => {
-      console.log(action);
-    },
-    FILM_REQUESTFORFILM: (state, action) => {
-      console.log(action);
-    },
-    FILMS_SUCCESS: (state, action) => [...action.payload],
-    FILMS_FAIL: (state, action) => action.payload,
-    FILM_SUCCESS: (state, action) => action.payload,
-    FILM_FAIL: (state, action) => action.payload,
+    [actions.filmsRequest]: (state, action) => state,
+    [actions.filmRequest]: (state, action) => state,
+    [actions.getFilms]: (state, action) => [...action.payload],
+    [actions.getFilmsFail]: (state, action) => action.payload,
+    [actions.getFilmSuccess]: (state, action) => action.payload,
+    [actions.getFail]: (state, action) => action.payload,
   },
   { initialState }
 );

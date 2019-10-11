@@ -7,34 +7,37 @@ import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
+import { ClipLoader } from 'react-spinners';
 import useStyles from './style';
 
 const filmList = props => {
   const classes = useStyles();
-  const films = Array.from(props.films);
   return (
     <div className={classes.div}>
       <div className={classes.flexs}>
-        {films.map(film => {
-          const key = films.id;
-          return (
-            <Card className={classes.card} key={key}>
-              <CardContent className={classes.titleCardContent}>
-                <Typography className={classes.titles} color="textSecondary" gutterBottom>
-                  {film.name}
-                </Typography>
-              </CardContent>
-              <CardMedia className={classes.cardMediastyle} image={film.imageXPath} />
-              <CardActions>
-                <Link className={classes.a} to={`${film.id}`}>
-                  <Button size="small" variant="outlined" color="primary">
-                    More Details
-                  </Button>
-                </Link>
-              </CardActions>
-            </Card>
-          );
-        })}
+        {props.films.length > 0 ? (
+          props.films.map(film => {
+            return (
+              <Card className={classes.card} key={film.id}>
+                <CardContent className={classes.titleCardContent}>
+                  <Typography className={classes.titles} color="textSecondary" gutterBottom>
+                    {film.name}
+                  </Typography>
+                </CardContent>
+                <CardMedia className={classes.cardMediastyle} image={film.imageXPath} />
+                <CardActions>
+                  <Link className={classes.a} to={`${film.id}`}>
+                    <Button size="small" variant="outlined" color="primary">
+                      More Details
+                    </Button>
+                  </Link>
+                </CardActions>
+              </Card>
+            );
+          })
+        ) : (
+          <ClipLoader color="blue" />
+        )}
       </div>
     </div>
   );

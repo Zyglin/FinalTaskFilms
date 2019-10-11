@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import MainView from '../views/MainRedux';
 import { mailSelector, imageSelector } from '../selectors';
-import { logOut } from '../actions';
+import { logOut, CommentsClean } from '../actions';
 
 class MainContainer extends React.PureComponent {
   handleClick = event => {
@@ -17,6 +17,7 @@ class MainContainer extends React.PureComponent {
   };
 
   handleClickMenu = event => {
+    this.props.CommentsClean();
     this.props.history.push('/main');
   };
 
@@ -26,6 +27,7 @@ class MainContainer extends React.PureComponent {
 }
 const mapDispatchToProps = dispatch => ({
   logOut: () => dispatch(logOut()),
+  CommentsClean: () => dispatch(CommentsClean()),
 });
 
 function mapStateToProps(state) {
@@ -37,9 +39,10 @@ function mapStateToProps(state) {
 
 MainContainer.propTypes = {
   history: PropTypes.any,
-  logOut: PropTypes.func,
-  mail: PropTypes.string,
-  avatar: PropTypes.string,
+  logOut: PropTypes.func.isRequired,
+  mail: PropTypes.string.isRequired,
+  avatar: PropTypes.string.isRequired,
+  CommentsClean: PropTypes.func.isRequired,
 };
 
 export default connect(

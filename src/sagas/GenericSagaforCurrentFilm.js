@@ -1,6 +1,7 @@
 import { takeEvery, put, select } from 'redux-saga/effects';
 import lodash from 'lodash';
 import * as callMethods from './callMethodsforFilms';
+import * as actions from '../actions';
 import { jwtSelector } from '../selectors';
 
 export function* mySagaGenericFilm(action) {
@@ -20,7 +21,7 @@ export function* mySagaGenericFilm(action) {
 
 export function* mySagaFilm(action) {
   yield takeEvery(({ type }) => /_REQUESTFORFILM$/g.test(type), mySagaGenericFilm);
-  yield takeEvery('CREATE_COMMENTS_SUCCESS', callMethods.createCommentSuccess);
-  yield takeEvery('CREATE_RATING_SUCCESS', callMethods.createRatingSuccess);
-  yield takeEvery('EDIT_USER_SUCCESS', callMethods.editUserSuccess);
+  yield takeEvery(actions.createCommentSuccess, callMethods.createCommentSuccess);
+  yield takeEvery(actions.createRatingSuccess, callMethods.createRatingSuccess);
+  yield takeEvery(actions.editUserSuccess, callMethods.editUserSuccess);
 }
